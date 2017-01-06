@@ -4,7 +4,7 @@
 
   <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Atendimento</title>
+    <title>SCP</title>
     {% block head_content %}
       <link rel="icon" href="{% static 'img/favicon.ico' %}"  type="image/png" >
       <!-- Bootstrap -->
@@ -27,7 +27,7 @@
 
              <div class="nav-collapse collapse">
                  <ul class="nav pull-right">
-                   {% if user.is_authenticated %}
+                   <!-- {% if user.is_authenticated %}
                     <li class="dropdown">
                       <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }}<span class="caret"></span></a>
                       <ul class="dropdown-menu">
@@ -36,10 +36,10 @@
                       </ul>
                     </li>
                     <li><a href="">Sair</a></li>
-                   {% else %}
+                   {% else %} -->
                     <li><a href="">Cadastre-se</a></li>
                     <li><a href="">Login</a></li>
-                   {% endif %}
+                   <!-- {% endif %} -->
                  </ul>
                  <ul class="nav">
                    {% if user.is_authenticated %}
@@ -66,7 +66,7 @@
                 <a href="/">
                   <img align="left" height="120" width="120" src="{% static 'img/logo.png' %}" alt="Logo" class="img-responsive visible-lg-inline-block vcenter" >
                   <span class="vcenter" style="display:inline-block; color:black;" align="right">
-                    <h2>Interlegis</h4><small><p>Sistema de Solicitação de Serviços</p></small>
+                    <h2>SCP</h4><small><p>Sistema de Controle de Pacientes</p></small>
                   </span>
                 </a>
               </div>
@@ -130,11 +130,11 @@
         <div class="row">
           <div style="float:left">
             <a class="footer__logo" href="#">
-              <img src="{% static 'img/logo_interlegis.jpg' %}" alt="{% trans 'Logo do Interlegis' %} ">
+              <img src="{% static 'img/logo_open_source.png' %}" alt="{% trans 'Logo Open Source' %} ">
             </a>
             <p>
               <small>
-                Desenvolvido pelo <a href="">Interlegis</a> em software livre e aberto.
+                Desenvolvido em software livre e aberto.
               </small>
             </p>
           </div>
