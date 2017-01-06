@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles i18n sass_tags %}
+{% load staticfiles i18n sass_tags%}
 <html class="no-js" lang="pt-br">
 
   <head>
@@ -43,9 +43,9 @@
                  </ul>
                  <ul class="nav">
                    {% if user.is_authenticated %}
-                    <li><a href="{% url 'solicitacoes:solicitacao_list' %}">Solicitação</a></li>
-                    <li><a href="{% url 'solicitacoes:sistema_list' %}">Sistema</a></li>
-                    <li><a href="{% url 'usuarios:usuario_list' %}">Habilitar</a></li>
+                    <li><a href="">Solicitação</a></li>
+                    <li><a href="">Sistema</a></li>
+                    <li><a href="">Habilitar</a></li>
                    {% endif %}
                    <li><a href="">Contato</a></li>
                  </ul>
