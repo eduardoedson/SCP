@@ -16,43 +16,6 @@
   </head>
 
   {% block navigation %}
-    <div class="navbar navbar-inverse navbar-fixed-top">
-     <div class="navbar-inner">
-         <div class="container">
-             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                 <span class="icon-bar"></span>
-                 <span class="icon-bar"></span>
-                 <span class="icon-bar"></span>
-             </button>
-
-             <div class="nav-collapse collapse">
-                 <ul class="nav pull-right">
-                   <!-- {% if user.is_authenticated %}
-                    <li class="dropdown">
-                      <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }}<span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                        <li class="nav__sub-item"><a class="nav__sub-link" href="">Perfil</a></li>
-                        <li class="nav__sub-item"><a class="nav__sub-link" href="">Mudar Senha</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="">Sair</a></li>
-                   {% else %} -->
-                    <li><a href="">Cadastre-se</a></li>
-                    <li><a href="">Login</a></li>
-                   <!-- {% endif %} -->
-                 </ul>
-                 <ul class="nav">
-                   {% if user.is_authenticated %}
-                    <li><a href="">Solicitação</a></li>
-                    <li><a href="">Sistema</a></li>
-                    <li><a href="">Habilitar</a></li>
-                   {% endif %}
-                   <li><a href="">Contato</a></li>
-                 </ul>
-             </div>
-         </div>
-     </div>
-   </div>
   {% endblock navigation %}
 
   <body>
