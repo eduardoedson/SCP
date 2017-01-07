@@ -1,3 +1,5 @@
 from django.shortcuts import render
+from .models import TipoUsuario
+from crud.base import Crud
 
-# Create your views here.
+TipoUsuarioCrud = Crud.build(TipoUsuario, '')

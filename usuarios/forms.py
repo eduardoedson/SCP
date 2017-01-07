@@ -57,9 +57,8 @@ class UsuarioForm(ModelForm):
 
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'nome', 'password', 'vinculo',
-                  'password_confirm', 'email_confirm', 'data_nascimento',
-                  'sexo', 'plano', 'tipo']
+        fields = ['username', 'email', 'nome', 'password', 'password_confirm',
+                  'email_confirm', 'data_nascimento', 'sexo', 'plano', 'tipo']
 
         widgets = {'email': forms.TextInput(
                                attrs={'style': 'text-transform:lowercase;'})}

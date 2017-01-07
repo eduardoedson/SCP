@@ -24,3 +24,23 @@ RANGE_SEXO = [('F', _('Feminino')), ('M', _('Masculino')), ('O', _('Outro'))]
 TIPO_TELEFONE = [('FIXO', 'FIXO'), ('CELULAR', 'CELULAR')]
 
 YES_NO_CHOICES = [(None, _('----')), (False, _('Não')), (True, _('Sim'))]
+
+def from_to(start, end):
+    return list(range(start, end + 1))
+
+def make_pagination(index, num_pages):
+    PAGINATION_LENGTH = 10
+    if num_pages <= PAGINATION_LENGTH:
+        return from_to(1, num_pages)
+    else:
+        if index - 1 <= 5:
+            tail = [num_pages - 1, num_pages]
+            head = from_to(1, PAGINATION_LENGTH - 3)
+        else:
+            if index + 1 >= num_pages - 3:
+                tail = from_to(index - 1, num_pages)
+            else:
+                tail = [index - 1, index, index + 1,
+                        None, num_pages - 1, num_pages]
+            head = from_to(1, PAGINATION_LENGTH - len(tail) - 1)
+        return head + [None] + tail
