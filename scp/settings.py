@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 SCP_APPS = [
     'usuarios',
+    'servicos',
 ]
 
 INSTALLED_APPS = [
