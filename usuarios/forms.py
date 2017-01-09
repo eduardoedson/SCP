@@ -67,6 +67,8 @@ class UsuarioForm(ModelForm):
         self.fields['primeiro_ddd'].widget.attrs['class'] = 'ddd'
         self.fields['segundo_numero'].widget.attrs['class'] = 'telefone'
         self.fields['segundo_ddd'].widget.attrs['class'] = 'ddd'
+        self.fields['cep'].widget.attrs['class'] = 'cep'
+        # self.fields['data_nascimento'].widget.attrs['class'] = 'datepicker'
 
     def valida_igualdade(self, texto1, texto2, msg):
         if texto1 != texto2:

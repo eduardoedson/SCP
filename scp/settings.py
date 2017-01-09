@@ -155,6 +155,7 @@ CRISPY_FAIL_SILENTLY = not DEBUG
 
 BOWER_COMPONENTS_ROOT = BASE_DIR.child("bower")
 BOWER_INSTALLED_APPS = (
+    'jquery#3.1.1',
     'bootstrap-sass#3.3.6',
     'components-font-awesome#4.5.0',
     'tinymce#4.3.3',
