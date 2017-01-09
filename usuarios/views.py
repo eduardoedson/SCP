@@ -17,7 +17,7 @@ class UsuarioCrud(Crud):
 
     class BaseMixin(crud.base.CrudBaseMixin):
         list_field_names = [
-            'username', 'nome_completo', 'data_criacao', 'plano']
+            'username', 'nome', 'data_nascimento', 'plano']
 
     class CreateView(crud.base.CrudCreateView):
         form_class = UsuarioForm

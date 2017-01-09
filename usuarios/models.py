@@ -53,7 +53,7 @@ class Telefone(models.Model):
 class Usuario(models.Model):
     nome = models.CharField(max_length=50, verbose_name=_('Nome'))
     data_nascimento = models.DateField(
-        blank=True, null=True, verbose_name=_('Data Nascimento'))
+        blank=True, null=True, verbose_name=_('Data de Nascimento'))
     sexo = models.CharField(
         max_length=1, verbose_name=_('Sexo'), choices=RANGE_SEXO)
     data_cadastro = models.DateField(auto_now_add=True)
