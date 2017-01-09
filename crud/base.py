@@ -7,8 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
-from utils import make_pagination
 from crispy_layout_mixin import CrispyLayoutFormMixin, get_field_display
+from utils import make_pagination
 
 LIST, CREATE, DETAIL, UPDATE, DELETE = \
     'list', 'create', 'detail', 'update', 'delete'

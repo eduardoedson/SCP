@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from utils import RANGE_SEXO, TIPO_TELEFONE, YES_NO_CHOICES

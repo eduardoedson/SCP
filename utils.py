@@ -25,8 +25,10 @@ TIPO_TELEFONE = [('FIXO', 'FIXO'), ('CELULAR', 'CELULAR')]
 
 YES_NO_CHOICES = [(None, _('----')), (False, _('Não')), (True, _('Sim'))]
 
+
 def from_to(start, end):
     return list(range(start, end + 1))
+
 
 def make_pagination(index, num_pages):
     PAGINATION_LENGTH = 10

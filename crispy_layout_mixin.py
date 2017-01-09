@@ -40,10 +40,10 @@ def form_actions(more=[], save_label=_('Salvar')):
 
 class FormLayout(Layout):
 
-    def __init__(self, *fields, label_cancel=_("Cancelar")):
+    def __init__(self, *fields):
         buttons = form_actions(more=[
             HTML('<a href="{{ view.cancel_url }}"'
-                 ' class="btn btn-inverse">%s</a>' % label_cancel)])
+                 ' class="btn btn-inverse">Cancelar</a>')])
         _fields = list(to_fieldsets(fields)) + [to_row([(buttons, 12)])]
         super(FormLayout, self).__init__(*_fields)
 
