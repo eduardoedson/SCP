@@ -3,10 +3,12 @@ from crispy_forms.layout import Fieldset, Layout, Submit
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.db import transaction
+from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
 from crispy_layout_mixin import form_actions
-from utils import TIPO_TELEFONE
+from utils import TIPO_TELEFONE, YES_NO_CHOICES
 
 from .models import Telefone, Usuario
 

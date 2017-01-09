@@ -10,6 +10,11 @@ Usuario:
   Segundo Telefone:
     - segundo_tipo segundo_ddd:2 segundo_numero:6 segundo_principal
 
+UsuarioDetail:
+  Dados Pessoais:
+  - nome:8 email
+  - tipo sexo plano
+
 TipoUsuario:
   Tipo de Usuário:
   - descricao
