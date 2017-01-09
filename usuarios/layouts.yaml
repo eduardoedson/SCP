@@ -14,6 +14,21 @@ Usuario:
   Segundo Telefone:
     - segundo_tipo segundo_ddd:2 segundo_numero:6 segundo_principal
 
+UsuarioEdit:
+  Dados Pessoais:
+  - nome:8 data_nascimento
+  - sexo plano tipo
+  Dados Usuário:
+  - username:4 email
+  Endereço:
+    - cep:5 end
+    - complemento bairro numero:3
+    - referencia
+  Primeiro Telefone:
+    - primeiro_tipo primeiro_ddd:2 primeiro_numero:6 primeiro_principal
+  Segundo Telefone:
+    - segundo_tipo segundo_ddd:2 segundo_numero:6 segundo_principal
+
 UsuarioDetail:
   Dados Pessoais:
   - nome:8 email

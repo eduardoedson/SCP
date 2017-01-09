@@ -3,7 +3,7 @@ from django.views.generic import DetailView
 import crud.base
 from crud.base import Crud
 
-from .forms import UsuarioForm
+from .forms import UsuarioForm, UsuarioEditForm
 from .models import PlanoSaude, TipoUsuario, Usuario
 
 TipoUsuarioCrud = Crud.build(TipoUsuario, '')
@@ -22,7 +22,7 @@ class UsuarioCrud(Crud):
         form_class = UsuarioForm
 
     class UpdateView(crud.base.CrudUpdateView):
-        form_class = UsuarioForm
+        form_class = UsuarioEditForm
 
         def get_initial(self):
             if self.get_object():
@@ -41,10 +41,10 @@ class UsuarioCrud(Crud):
                     self.initial['segundo_principal'] = tel2.principal
 
             return self.initial.copy()
-        #
-        # @property
-        # def layout_key(self):
-        #     return 'UsuarioEdit'
+
+        @property
+        def layout_key(self):
+            return 'UsuarioEdit'
 
     class DetailView(crud.base.CrudDetailView):
 

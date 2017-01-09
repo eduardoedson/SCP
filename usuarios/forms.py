@@ -12,6 +12,7 @@ from .models import Telefone, Usuario
 
 
 class UsuarioForm(ModelForm):
+
     # Primeiro Telefone
     primeiro_tipo = forms.ChoiceField(
         widget=forms.Select(),
@@ -66,7 +67,6 @@ class UsuarioForm(ModelForm):
         self.fields['segundo_numero'].widget.attrs['class'] = 'telefone'
         self.fields['segundo_ddd'].widget.attrs['class'] = 'ddd'
         self.fields['cep'].widget.attrs['class'] = 'cep'
-        # self.fields['data_nascimento'].widget.attrs['class'] = 'datepicker'
 
     def valida_igualdade(self, texto1, texto2, msg):
         if texto1 != texto2:
@@ -96,10 +96,6 @@ class UsuarioForm(ModelForm):
 
         cleaned_data['segundo_telefone'] = telefone
         return cleaned_data
-
-    def valida_email_existente(self):
-        return Usuario.objects.filter(
-            email=self.cleaned_data['email']).exists()
 
     def clean(self):
 
@@ -150,5 +146,117 @@ class UsuarioForm(ModelForm):
 
         u.save()
         usuario.user = u
+        usuario.save()
+        return usuario
+
+
+class UsuarioEditForm(ModelForm):
+
+    # Primeiro Telefone
+    primeiro_tipo = forms.ChoiceField(
+        widget=forms.Select(),
+        choices=TIPO_TELEFONE,
+        label=_('Tipo Telefone'))
+    primeiro_ddd = forms.CharField(max_length=2, label=_('DDD'))
+    primeiro_numero = forms.CharField(max_length=10, label=_('Número'))
+    primeiro_principal = forms.TypedChoiceField(
+        widget=forms.Select(),
+        label=_('Telefone Principal?'),
+        choices=YES_NO_CHOICES)
+
+    # Primeiro Telefone
+    segundo_tipo = forms.ChoiceField(
+        required=False,
+        widget=forms.Select(),
+        choices=TIPO_TELEFONE,
+        label=_('Tipo Telefone'))
+    segundo_ddd = forms.CharField(required=False, max_length=2, label=_('DDD'))
+    segundo_numero = forms.CharField(
+        required=False, max_length=10, label=_('Número'))
+    segundo_principal = forms.ChoiceField(
+        required=False,
+        widget=forms.Select(),
+        label=_('Telefone Principal?'),
+        choices=YES_NO_CHOICES)
+
+    class Meta:
+        model = Usuario
+        fields = ['username', 'email', 'nome', 'data_nascimento', 'sexo',
+                  'plano', 'tipo', 'cep', 'end', 'numero', 'complemento',
+                  'bairro', 'referencia']
+
+        widgets = {'username': forms.TextInput(attrs={'readonly': 'readonly'}),
+                   'email': forms.TextInput(
+                                 attrs={'style': 'text-transform:lowercase;'}),
+                   }
+
+    def __init__(self, *args, **kwargs):
+        super(UsuarioEditForm, self).__init__(*args, **kwargs)
+        self.fields['primeiro_numero'].widget.attrs['class'] = 'telefone'
+        self.fields['primeiro_ddd'].widget.attrs['class'] = 'ddd'
+        self.fields['segundo_numero'].widget.attrs['class'] = 'telefone'
+        self.fields['segundo_ddd'].widget.attrs['class'] = 'ddd'
+        self.fields['cep'].widget.attrs['class'] = 'cep'
+
+    def valida_igualdade(self, texto1, texto2, msg):
+        if texto1 != texto2:
+            raise ValidationError(msg)
+        return True
+
+    def clean_primeiro_numero(self):
+        cleaned_data = self.cleaned_data
+
+        telefone = Telefone()
+        telefone.tipo = self.data['primeiro_tipo']
+        telefone.ddd = self.data['primeiro_ddd']
+        telefone.numero = self.data['primeiro_numero']
+        telefone.principal = self.data['primeiro_principal']
+
+        cleaned_data['primeiro_telefone'] = telefone
+        return cleaned_data
+
+    def clean_segundo_numero(self):
+        cleaned_data = self.cleaned_data
+
+        telefone = Telefone()
+        telefone.tipo = self.data['segundo_tipo']
+        telefone.ddd = self.data['segundo_ddd']
+        telefone.numero = self.data['segundo_numero']
+        telefone.principal = self.data['segundo_principal']
+
+        cleaned_data['segundo_telefone'] = telefone
+        return cleaned_data
+
+    @transaction.atomic
+    def save(self, commit=False):
+        usuario = super(UsuarioEditForm, self).save(commit)
+
+        # Primeiro telefone
+        tel = usuario.primeiro_telefone
+
+        tel.tipo = self.data['primeiro_tipo']
+        tel.ddd = self.data['primeiro_ddd']
+        tel.numero = self.data['primeiro_numero']
+        tel.principal = self.data['primeiro_principal']
+        tel.save()
+
+        usuario.primeiro_telefone = tel
+
+        # Segundo telefone
+        tel = usuario.segundo_telefone
+
+        if tel:
+            tel.tipo = self.data['segundo_tipo']
+            tel.ddd = self.data['segundo_ddd']
+            tel.numero = self.data['segundo_numero']
+            tel.principal = self.data['segundo_principal']
+            tel.save()
+            usuario.segundo_telefone = tel
+
+        # User
+        u = usuario.user
+        u.email = usuario.email
+        u.save()
+
         usuario.save()
         return usuario
