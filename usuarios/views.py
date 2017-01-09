@@ -3,7 +3,7 @@ from django.views.generic import DetailView
 import crud.base
 from crud.base import Crud
 
-from .forms import UsuarioForm, UsuarioEditForm
+from .forms import UsuarioEditForm, UsuarioForm
 from .models import PlanoSaude, TipoUsuario, Usuario
 
 TipoUsuarioCrud = Crud.build(TipoUsuario, '')
@@ -52,13 +52,13 @@ class UsuarioCrud(Crud):
             context = super(DetailView, self).get_context_data(**kwargs)
 
             tel1 = context['object'].primeiro_telefone
-            tel1 = [('Primeiro Telefone'),
-                    ('[%s] - %s' % (tel1.ddd, tel1.numero))]
+            tel1 = '[%s] - %s' % (tel1.ddd, tel1.numero)
 
-            tel2 = context['object'].segundo_telefone or ''
+            tel2 = context['object'].segundo_telefone
             if tel2:
-                tel2 = [('Segundo Telefone'),
-                        ('[%s] - %s' % (tel2.ddd, tel2.numero))]
+                tel2 = '[%s] - %s' % (tel2.ddd, tel2.numero)
+            else:
+                tel2 = '----'
 
             context['telefones'] = [tel1, tel2]
             return context

@@ -32,7 +32,13 @@ UsuarioEdit:
 UsuarioDetail:
   Dados Pessoais:
   - nome:8 email
-  - tipo sexo plano
+  - tipo sexo
+  Dados de Usuário:
+  - username
+  Endereço:
+  - cep end complemento
+  - bairro numero referencia
+
 
 TipoUsuario:
   Tipo de Usuário:

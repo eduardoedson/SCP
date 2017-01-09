@@ -59,13 +59,14 @@
             {% for column in row %}
               <tr>
                 <th style="width:15%"><b>{{ column.verbose_name }}</b></th>
-                <th>{{ column.text|safe }}</th>
+                <td>{{ column.text|safe }}</td>
               </tr>
             {% endfor %}
           {% endfor %}
         </table>
       {% endfor %}
     {% endblock detail_content %}
+    {% block extrablock %}{% endblock extrablock %}
   </div>
 
   {% block table_content %}
