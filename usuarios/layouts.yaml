@@ -13,3 +13,7 @@ Usuario:
 TipoUsuario:
   Tipo de Usuário:
   - descricao
+
+PlanoSaude:
+  Plano de Saúde:
+  - descricao
