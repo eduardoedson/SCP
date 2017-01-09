@@ -54,20 +54,16 @@
     {% block detail_content %}
       {% for fieldset in view.layout_display %}
         <h2 class="legend"><b>{{ fieldset.legend }}</b></h2>
-        {% for row in fieldset.rows %}
-          <div class="row-fluid">
+        <table style="width:100%" class="table table-hover">
+          {% for row in fieldset.rows %}
             {% for column in row %}
-              <div class="col-sm-{{ column.span }}">
-                <div id="div_id_{{ column.id }}" class="form-group">
-                  <p class="control-label" style="color:blue;">{{ column.verbose_name }}</p>
-                  <div class="controls">
-                    <div class="form-control-static">{{ column.text|safe }}</div>
-                  </div>
-                </div>
-              </div>
+              <tr>
+                <th style="width:15%"><b>{{ column.verbose_name }}</b></th>
+                <th>{{ column.text|safe }}</th>
+              </tr>
             {% endfor %}
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </table>
       {% endfor %}
     {% endblock detail_content %}
   </div>
