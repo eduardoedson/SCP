@@ -92,4 +92,4 @@ class Usuario(models.Model):
         ordering = ['nome', 'tipo']
 
     def __str__(self):
-        return '%s - %s' % self.nome, self.tipo.descricao
+        return '%s - %s' % (self.nome, self.tipo.descricao)

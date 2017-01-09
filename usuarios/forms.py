@@ -2,6 +2,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Fieldset, Layout, Submit
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.forms import ModelForm
@@ -114,22 +115,6 @@ class UsuarioForm(ModelForm):
             self.cleaned_data['password'],
             self.cleaned_data['password_confirm'],
             msg)
-
-        if ('email' not in self.cleaned_data or
-                'email_confirm' not in self.cleaned_data):
-            raise ValidationError(_('Favor informar endereços de email'))
-
-        msg = _('Os emails não conferem.')
-        self.valida_igualdade(
-            self.cleaned_data['email'],
-            self.cleaned_data['email_confirm'],
-            msg)
-
-        email_existente = self.valida_email_existente()
-
-        if email_existente:
-            msg = _('Esse email já foi cadastrado.')
-            raise ValidationError(msg)
 
         try:
             validate_password(self.cleaned_data['password'])
