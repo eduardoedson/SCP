@@ -52,15 +52,11 @@ class UsuarioForm(ModelForm):
         label=_('Confirmar Senha'),
         widget=forms.PasswordInput())
 
-    email_confirm = forms.EmailField(
-        required=True,
-        widget=forms.TextInput(attrs={'style': 'text-transform:lowercase;'}),
-        label=_('Confirmar Email'))
-
     class Meta:
         model = Usuario
         fields = ['username', 'email', 'nome', 'password', 'password_confirm',
-                  'email_confirm', 'data_nascimento', 'sexo', 'plano', 'tipo']
+                  'data_nascimento', 'sexo', 'plano', 'tipo', 'cep', 'end',
+                  'numero', 'complemento', 'bairro', 'referencia']
 
         widgets = {'email': forms.TextInput(
                                attrs={'style': 'text-transform:lowercase;'})}

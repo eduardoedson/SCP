@@ -60,15 +60,31 @@ class Usuario(models.Model):
     tipo = models.ForeignKey(TipoUsuario, verbose_name=_('Tipo de Usuário'))
     plano = models.ForeignKey(
         PlanoSaude, verbose_name=_('Plano de Saúde'), blank=True)
+
+    # Telefones
     primeiro_telefone = models.ForeignKey(
         Telefone, null=True, related_name='primeiro_telefone')
     segundo_telefone = models.ForeignKey(
         Telefone, null=True, related_name='segundo_telefone')
 
+    # Dados para logar no sistema
     user = models.ForeignKey(User)
     email = email = models.EmailField(unique=True, verbose_name=_('Email'))
     username = models.CharField(
         verbose_name=_('Nome de Usuário'), unique=True, max_length=20)
+
+    # Endereço
+    cep = models.CharField(max_length=30, verbose_name=_('CEP'), blank=True)
+    end = models.CharField(
+        max_length=50, verbose_name=_('Endereço'), blank=True)
+    numero = models.CharField(
+        max_length=50, verbose_name=_('Número'), blank=True)
+    complemento = models.CharField(
+        max_length=50, verbose_name=_('Complemento'), blank=True)
+    bairro = models.CharField(
+        max_length=30, verbose_name=_('Bairro'), blank=True)
+    referencia = models.CharField(
+        max_length=30, verbose_name=_('Ponto de Referência'), blank=True)
 
     class Meta:
         verbose_name = _('Usuário')

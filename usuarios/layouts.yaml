@@ -5,6 +5,10 @@ Usuario:
   Dados Usuário:
   - username:4 email
   - password password_confirm
+  Endereço:
+    - cep:5 end
+    - complemento bairro numero:3
+    - referencia
   Primeiro Telefone:
     - primeiro_tipo primeiro_ddd:2 primeiro_numero:6 primeiro_principal
   Segundo Telefone:
