@@ -1,6 +1,6 @@
 from datetime import date
-
 from django.utils.translation import ugettext_lazy as _
+import usuarios
 
 RANGE_MESES = [
     (1, _('Janeiro')),
@@ -46,3 +46,13 @@ def make_pagination(index, num_pages):
                         None, num_pages - 1, num_pages]
             head = from_to(1, PAGINATION_LENGTH - len(tail) - 1)
         return head + [None] + tail
+
+
+def get_medicos():
+    tipo = usuarios.models.TipoUsuario.objects.get(descricao='Médico')
+    return usuarios.models.Usuario.objects.filter(tipo=tipo)
+
+
+def get_pacientes():
+    tipo = usuarios.models.TipoUsuario.objects.get(descricao='Paciente')
+    return usuarios.models.Usuario.objects.filter(tipo=tipo)
