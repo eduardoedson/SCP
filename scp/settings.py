@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'floppyforms',
     'sass_processor',
+    'easy_select2',
 ] + SCP_APPS
 
 MIDDLEWARE = [

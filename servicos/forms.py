@@ -9,9 +9,12 @@ from easy_select2 import Select2
 
 class ConsultaForm(ModelForm):
 
-    medico = forms.ModelChoiceField(queryset=get_medicos(), widget=Select2())
+    medico = forms.ModelChoiceField(
+        queryset=get_medicos(),
+        widget=Select2(select2attrs={'width': '500px'}))
     paciente = forms.ModelChoiceField(
-        queryset=get_pacientes(), widget=Select2())
+        queryset=get_pacientes(),
+        widget=Select2(select2attrs={'width': '500px'}))
 
     class Meta:
         model = Consulta
