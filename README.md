@@ -41,24 +41,24 @@ Criar banco:
 ---------------------------------------
 * Em outro terminal rode:<br />
   ``
-    sudo su - postgres<br />
-    createdb scp<br />
-    psql<br />
-    GRANT ALL PRIVILEGES ON DATABASE scp TO postgres;<br />
-    \q<br />
-    exit<br />
+    sudo su - postgres
+    createdb scp
+    psql
+    GRANT ALL PRIVILEGES ON DATABASE scp TO postgres;
+    \q
+    exit
   ``
 
 * De volta ao terminal dentro da virtualenv rode:<br />
   ``
-    ./manage.py migrate<br />
-    ./manage.py loaddata criar_tipos.yaml<br />
+    ./manage.py migrate
+    ./manage.py loaddata criar_tipos.yaml
   ``
 
 Rodando projeto:<br />
 ---------------------------------------
 * Rode:<br />
-  ``./manage.py runserver``<br />
+  ``./manage.py runserver``
 * Acesse no navegador:<br />
-  ``localhost:8000``<br />
-<br />
+  ``localhost:8000``
+
