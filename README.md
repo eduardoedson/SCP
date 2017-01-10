@@ -10,15 +10,15 @@ Instalação de dependências para uso do postgresql como database
 Instalação da virtualenv
 ------------------------
   ``
-    $ sudo pip install virtualenvwrapper
+    $ sudo pip install virtualenvwrapper<br />
     $ sudo vim .bashrc
   ``
-* No final do arquivo adicionar:
+* No final do arquivo adicionar:<br />
   ``
-    export WORKON_HOME=$HOME/.virtualenvs
+    export WORKON_HOME=$HOME/.virtualenvs<br />
     source /usr/local/bin/virtualenvwrapper.sh
   ``
-* Após fechar rodar:
+* Após fechar rodar:<br />
   ``
     source ~/.bashrc
   ``
@@ -26,11 +26,11 @@ Instalação da virtualenv
 
 Instalação das dependências do projeto:
 ---------------------------------------
-* Criar uma virtualenv para instalar dependências do projeto:
+* Criar uma virtualenv para instalar dependências do projeto:<br />
   ``mkvirtualenv --python=/usr/bin/python3 scp``
-* Entrar na virtualenv:
+* Entrar na virtualenv:<br />
   ``workon scp``
-* Instalar dependências:
+* Instalar dependências:<br />
   ``
     pip install -r requirements.txt
     ./manage.py bower install
@@ -39,25 +39,26 @@ Instalação das dependências do projeto:
 
 Criar banco:
 ---------------------------------------
-* Em outro terminal rode:
+* Em outro terminal rode:<br />
   ``
-    sudo su - postgres
-    createdb scp
-    psql
-    GRANT ALL PRIVILEGES ON DATABASE scp TO postgres;
-    \q
-    exit
-  ``
-
-* De volta ao terminal dentro da virtualenv rode:
-  ``
-    ./manage.py migrate
-    ./manage.py loaddata criar_tipos.yaml
+    sudo su - postgres<br />
+    createdb scp<br />
+    psql<br />
+    GRANT ALL PRIVILEGES ON DATABASE scp TO postgres;<br />
+    \q<br />
+    exit<br />
   ``
 
-Rodando projeto:
+* De volta ao terminal dentro da virtualenv rode:<br />
+  ``
+    ./manage.py migrate<br />
+    ./manage.py loaddata criar_tipos.yaml<br />
+  ``
+
+Rodando projeto:<br />
 ---------------------------------------
-* Rode:
-  ``./manage.py runserver``
-* Acesse no navegador:
-  ``localhost:8000``
+* Rode:<br />
+  ``./manage.py runserver``<br />
+* Acesse no navegador:<br />
+  ``localhost:8000``<br />
+<br />
