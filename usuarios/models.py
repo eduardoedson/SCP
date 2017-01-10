@@ -92,3 +92,11 @@ class Usuario(models.Model):
 
     def __str__(self):
         return '%s - %s' % (self.nome, self.tipo.descricao)
+
+    def get_medicos(self):
+        tipo = TipoUsuario.objects.get(descricao='Médico')
+        return Usuario.objects.filter(tipo=tipo)
+
+    def get_pacientes(self):
+        tipo = TipoUsuario.objects.get(descricao='Paciente')
+        return Usuario.objects.filter(tipo=tipo)
