@@ -11,11 +11,11 @@ class ConsultaForm(ModelForm):
 
     medico = forms.ModelChoiceField(
         queryset=get_medicos(),
-        widget=Select2(select2attrs={'width': '500px'}))
+        widget=Select2(select2attrs={'width': '535px'}))
     paciente = forms.ModelChoiceField(
         queryset=get_pacientes(),
-        widget=Select2(select2attrs={'width': '500px'}))
+        widget=Select2(select2attrs={'width': '535px'}))
 
     class Meta:
         model = Consulta
-        fields = ['medico', 'paciente', 'descricao']
+        fields = ['medico', 'paciente', 'descricao', 'data', 'hora']

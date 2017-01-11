@@ -33,7 +33,7 @@ class Telefone(models.Model):
     tipo = models.CharField(
         max_length=7,
         choices=TIPO_TELEFONE,
-        verbose_name=_('Tipo Telefone'),)
+        verbose_name=_('Tipo Telefone'))
     ddd = models.CharField(max_length=2, verbose_name=_('DDD'))
     numero = models.CharField(max_length=10, verbose_name=_('Número'))
     principal = models.CharField(

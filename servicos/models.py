@@ -10,3 +10,16 @@ class Consulta(models.Model):
     paciente = models.ForeignKey(
         Usuario, verbose_name=_('Paciente'), related_name='paciente')
     descricao = models.TextField(verbose_name=_('Descrição'))
+    data = models.DateField(
+        blank=True, null=True, verbose_name=_('Data da Consulta'))
+    hora = models.CharField(
+        blank=True, null=True,
+        max_length=10, verbose_name=_('Hora da Consulta'))
+
+    class Meta:
+        verbose_name = _('Consulta')
+        verbose_name_plural = _('Consultas')
+        ordering = ['data', 'medico', 'paciente']
+
+    def __str__(self):
+        return '%s - %s | %s' % (self.nome, self.tipo.descricao, self.data)
