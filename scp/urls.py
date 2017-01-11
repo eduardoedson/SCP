@@ -15,14 +15,25 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth.views import login, logout
 from django.views.generic.base import TemplateView
 
-import usuarios.urls
 import servicos.urls
+import usuarios.urls
+from usuarios.forms import LoginForm
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
+    url(r'^home/$', TemplateView.as_view(
+        template_name='index.html'), name='home'),
+
     url(r'', include(usuarios.urls)),
     url(r'', include(servicos.urls)),
+
+    url(r'^$', login, {
+        'template_name': 'login.html',
+        'authentication_form': LoginForm
+        },
+        name='login'),
+    url(r'^logout/$', logout, {'next_page': '/'}, name='logout')
 ]

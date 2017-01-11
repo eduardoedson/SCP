@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
@@ -9,6 +10,18 @@ from django.utils.translation import ugettext_lazy as _
 from utils import TIPO_TELEFONE, YES_NO_CHOICES
 
 from .models import Telefone, Usuario
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(
+        label="Username", max_length=30,
+        widget=forms.TextInput(
+            attrs={'class': 'form-control', 'name': 'username'}))
+
+    password = forms.CharField(
+        label="Password", max_length=30,
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control', 'name': 'password'}))
 
 
 class UsuarioForm(ModelForm):

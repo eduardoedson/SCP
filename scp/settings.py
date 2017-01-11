@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'easy_select2',
 ] + SCP_APPS
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -164,3 +164,5 @@ BOWER_INSTALLED_APPS = (
     'jQuery-Mask-Plugin#1.13.4',
     'jsdiff#2.2.1',
 )
+
+LOGIN_REDIRECT_URL = '/home'

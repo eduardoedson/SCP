@@ -6,5 +6,10 @@
 {% endblock %}
 
 {% block base_content %}
-<h3>logado - PK = {{usuario_pk}}<h3>
+<h2>Login - PK = {{usuario_pk}}</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Login</button>
+</form>
 {% endblock %}
