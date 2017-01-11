@@ -16,12 +16,16 @@ class LoginForm(AuthenticationForm):
     username = forms.CharField(
         label="Username", max_length=30,
         widget=forms.TextInput(
-            attrs={'class': 'form-control', 'name': 'username'}))
+            attrs={'class': 'form-control form-control-lg',
+                   'name': 'username',
+                   'placeholder': 'Usuário'}))
 
     password = forms.CharField(
         label="Password", max_length=30,
         widget=forms.PasswordInput(
-            attrs={'class': 'form-control', 'name': 'password'}))
+            attrs={'class': 'form-control',
+                   'name': 'password',
+                   'placeholder': 'Senha'}))
 
 
 class UsuarioForm(ModelForm):

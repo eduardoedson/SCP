@@ -3,13 +3,3 @@
 {% block base_content %}
   {% crispy form %}
 {% endblock %}
-
-{% block extra_js %}
-  <script type="text/javascript">
-    $(document).ready(function (){
-      $('#id_captcha_1').keyup(function(){
-        this.value = this.value.toUpperCase();
-      });
-    });
-  </script>
-{% endblock %}
