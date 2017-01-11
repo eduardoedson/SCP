@@ -5,6 +5,7 @@ from usuarios.models import Usuario
 from .models import Consulta
 from utils import get_medicos, get_pacientes
 from easy_select2 import Select2
+from datetime import datetime
 
 
 class ConsultaForm(ModelForm):
@@ -19,3 +20,8 @@ class ConsultaForm(ModelForm):
     class Meta:
         model = Consulta
         fields = ['medico', 'paciente', 'descricao', 'data', 'hora']
+
+    def __init__(self, *args, **kwargs):
+        super(ConsultaForm, self).__init__(*args, **kwargs)
+        self.fields['data'].initial = datetime.now()
+        self.fields['hora'].initial = datetime.now().strftime("%H:%M")
