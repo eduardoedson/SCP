@@ -1,4 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
+from django.http.response import HttpResponseRedirect
+
 from usuarios.models import Usuario
 
 
@@ -16,14 +19,18 @@ def recupera_user(request):
             else:
                 return usuario.pk
         else:
-            return 0
+            return -1
 
 
 def recupera_usuario(user_pk):
     if user_pk == 0:
-        context = {'user_pk': 0,
+        context = {'user_pk': user_pk,
                    'nome': 'Admin',
                    'tipo': 'Administrador'}
+    elif user_pk == -1:
+        context = {'user_pk': user_pk,
+                   'nome': '',
+                   'tipo': 'Deslogado'}
     else:
         usuario = Usuario.objects.get(pk=user_pk)
         if usuario.tipo.descricao == 'Médico':
