@@ -22,4 +22,4 @@ class Consulta(models.Model):
         ordering = ['data', 'medico', 'paciente']
 
     def __str__(self):
-        return '%s - %s | %s' % (self.nome, self.tipo.descricao, self.data)
+        return '-'

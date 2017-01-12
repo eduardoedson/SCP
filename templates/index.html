@@ -24,7 +24,7 @@
 
   {% if tipo == 'Paciente' %}
     <a href="{% url 'usuarios:usuario_detail' user_pk %}" class="btn btn-info btn-lg">Ver Perfil</a></a>
-    <a href="{% url 'usuarios:usuario_list' %}" class="btn btn-info btn-lg">Ver Consultas</a></a>
+    <a href="{% url 'servicos:consulta_list' %}" class="btn btn-info btn-lg">Ver Consultas</a></a>
     <a href="{% url 'usuarios:usuario_update' user_pk %}" class="btn btn-info btn-lg">Editar Perfil</a></a>
   {% endif %}
 
@@ -32,6 +32,7 @@
     <font color="red">Por falta de configuração esse tipo de usuário não possui nenhuma funcionalidade disponível.</font><br />
   {% endif %}
 
+  <a href="" class="btn btn-warning btn-lg">Mudar Senha</a></a>
   <a href="{% url 'logout' %}" class="btn btn-danger btn-lg">Sair</a></a>
 
 {% endblock %}

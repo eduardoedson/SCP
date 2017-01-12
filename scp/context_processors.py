@@ -38,12 +38,12 @@ def recupera_usuario(user_pk):
                        'nome': usuario.nome,
                        'tipo': 'Médico'}
         elif usuario.tipo.descricao == 'Paciente':
-            context = {'pk': user_pk,
-                       'nome': usuario.npme,
+            context = {'user_pk': user_pk,
+                       'nome': usuario.nome,
                        'tipo': 'Paciente'}
         else:
-            context = {'pk': user_pk,
-                       'nome': usuario.npme,
+            context = {'user_pk': user_pk,
+                       'nome': usuario.nome,
                        'tipo': 'Outro'}
     return context
 
