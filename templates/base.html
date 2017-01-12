@@ -24,20 +24,9 @@
     {% block body_block %}
       {# Header #}
       {% block main_header %}
-        <div class="jumbotron">
-          <header class="masthead">
-            <div class="container">
-              <div class="navbar-header">
-                <a href="/">
-                  <img align="left" height="120" width="120" src="{% static 'img/logo.png' %}" alt="Logo" class="img-responsive visible-lg-inline-block vcenter" >
-                  <span class="vcenter" style="display:inline-block; color:black;" align="right">
-                    <h2>SCP</h4><small><p>Sistema de Controle de Pacientes</p></small>
-                  </span>
-                </a>
-              </div>
-            </div>
-          </header>
-        </div>
+        <div><p style="text-align:center; margin-top:0px; margin-bottom:0px; padding:0px;">
+          <a href="/"><img height="130" width="380" src="{% static 'img/logo.jpg' %}" alt="image"/></a>
+        </p></div>
       {% endblock main_header %}
 
       {# Main content #}
@@ -93,30 +82,9 @@
   {% block footer %}
     <hr>
     <footer id="footer" class="footer page__row">
-      <div class="container">
-        <div class="row">
-          <div style="float:left">
-            <a class="footer__logo" href="#">
-              <img src="{% static 'img/logo_open_source.png' %}" alt="{% trans 'Logo Open Source' %} ">
-            </a>
-            <p>
-              <small>
-                Desenvolvido em software livre e aberto.
-              </small>
-            </p>
-          </div>
-          <div style="float:right">
-            <a class="footer__logo" href="">
-              <img src="{% static 'img/logo_cc.jpg' %}" alt="{% trans 'Logo do Creative Commons BY SA' %}">
-            </a>
-            <p>
-              <small>
-                Conteúdo e dados sob licença <a href="#">Creative Commons</a> 4.0 <a href="#">Atribuir Fonte - Compartilhar Igual</a>
-              </small>
-            </p>
-          </div>
-        </div>
-      </div>
+      <div><p style="text-align:center; margin-top:0px; margin-bottom:0px; padding:0px;">
+        Desenvolvido em Software Livre e Aberto por <a target="_blank" href="https://eduardoedson.github.io/">Eduardo</a>
+      </p></div>
     </footer>
   {% endblock footer %}
 </html>
