@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView
 
 import crud.base
@@ -6,22 +7,35 @@ from crud.base import Crud
 from .forms import UsuarioEditForm, UsuarioForm
 from .models import PlanoSaude, TipoUsuario, Usuario
 
-TipoUsuarioCrud = Crud.build(TipoUsuario, '')
-PlanoSaudeCrud = Crud.build(PlanoSaude, '')
+
+class PlanoSaudeCrud(LoginRequiredMixin, Crud):
+    model = PlanoSaude
+    help_path = ''
+
+    class BaseMixin(LoginRequiredMixin, crud.base.CrudBaseMixin):
+        list_field_names = ['descricao']
 
 
-class UsuarioCrud(Crud):
+class TipoUsuarioCrud(LoginRequiredMixin, Crud):
+    model = TipoUsuario
+    help_path = ''
+
+    class BaseMixin(LoginRequiredMixin, crud.base.CrudBaseMixin):
+        list_field_names = ['descricao']
+
+
+class UsuarioCrud(LoginRequiredMixin, Crud):
     model = Usuario
     help_path = ''
 
-    class BaseMixin(crud.base.CrudBaseMixin):
+    class BaseMixin(LoginRequiredMixin, crud.base.CrudBaseMixin):
         list_field_names = [
             'username', 'nome', 'data_nascimento', 'plano']
 
-    class CreateView(crud.base.CrudCreateView):
+    class CreateView(LoginRequiredMixin, crud.base.CrudCreateView):
         form_class = UsuarioForm
 
-    class UpdateView(crud.base.CrudUpdateView):
+    class UpdateView(LoginRequiredMixin, crud.base.CrudUpdateView):
         form_class = UsuarioEditForm
 
         def get_initial(self):
@@ -46,7 +60,7 @@ class UsuarioCrud(Crud):
         def layout_key(self):
             return 'UsuarioEdit'
 
-    class DetailView(crud.base.CrudDetailView):
+    class DetailView(LoginRequiredMixin, crud.base.CrudDetailView):
 
         def get_context_data(self, **kwargs):
             context = super(DetailView, self).get_context_data(**kwargs)

@@ -1,7 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 
 import crud.base
 from crud.base import Crud
@@ -12,20 +12,20 @@ from .forms import ConsultaForm
 from .models import Consulta
 
 
-class ConsultaCrud(Crud):
+class ConsultaCrud(LoginRequiredMixin, Crud):
     model = Consulta
     help_path = ''
 
-    class BaseMixin(crud.base.CrudBaseMixin):
+    class BaseMixin(LoginRequiredMixin, crud.base.CrudBaseMixin):
         list_field_names = ['medico', 'paciente']
 
-    class CreateView(crud.base.CrudCreateView):
+    class CreateView(LoginRequiredMixin, crud.base.CrudCreateView):
         form_class = ConsultaForm
 
-    class UpdateView(crud.base.CrudUpdateView):
+    class UpdateView(LoginRequiredMixin, crud.base.CrudUpdateView):
         form_class = ConsultaForm
 
-    class ListView(crud.base.CrudListView):
+    class ListView(LoginRequiredMixin, crud.base.CrudListView):
 
         def get_queryset(self):
             queryset = super().get_queryset()
