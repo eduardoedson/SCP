@@ -3,6 +3,7 @@ from django.views.generic import DetailView
 
 import crud.base
 from crud.base import Crud
+from scp.settings import LOGIN_REDIRECT_URL
 
 from .forms import UsuarioEditForm, UsuarioForm
 from .models import PlanoSaude, TipoUsuario, Usuario
@@ -14,6 +15,8 @@ class PlanoSaudeCrud(LoginRequiredMixin, Crud):
 
     class BaseMixin(LoginRequiredMixin, crud.base.CrudBaseMixin):
         list_field_names = ['descricao']
+        login_url = LOGIN_REDIRECT_URL
+        raise_exception = True
 
 
 class TipoUsuarioCrud(LoginRequiredMixin, Crud):
@@ -22,6 +25,8 @@ class TipoUsuarioCrud(LoginRequiredMixin, Crud):
 
     class BaseMixin(LoginRequiredMixin, crud.base.CrudBaseMixin):
         list_field_names = ['descricao']
+        login_url = LOGIN_REDIRECT_URL
+        raise_exception = True
 
 
 class UsuarioCrud(LoginRequiredMixin, Crud):
@@ -31,6 +36,8 @@ class UsuarioCrud(LoginRequiredMixin, Crud):
     class BaseMixin(LoginRequiredMixin, crud.base.CrudBaseMixin):
         list_field_names = [
             'username', 'nome', 'data_nascimento', 'plano']
+        login_url = LOGIN_REDIRECT_URL
+        raise_exception = True
 
     class CreateView(LoginRequiredMixin, crud.base.CrudCreateView):
         form_class = UsuarioForm

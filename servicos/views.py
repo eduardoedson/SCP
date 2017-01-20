@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render
 import crud.base
 from crud.base import Crud
 from scp.context_processors import recupera_user
+from scp.settings import LOGIN_REDIRECT_URL
 from usuarios.models import Usuario
 
 from .forms import ConsultaForm
@@ -18,6 +19,8 @@ class ConsultaCrud(LoginRequiredMixin, Crud):
 
     class BaseMixin(LoginRequiredMixin, crud.base.CrudBaseMixin):
         list_field_names = ['medico', 'paciente']
+        login_url = LOGIN_REDIRECT_URL
+        raise_exception = True
 
     class CreateView(LoginRequiredMixin, crud.base.CrudCreateView):
         form_class = ConsultaForm
