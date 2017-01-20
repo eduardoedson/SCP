@@ -1,5 +1,8 @@
 from datetime import date
+
+from django.contrib.auth.models import Group
 from django.utils.translation import ugettext_lazy as _
+
 import usuarios
 
 RANGE_MESES = [
@@ -56,3 +59,8 @@ def get_medicos():
 def get_pacientes():
     tipo = usuarios.models.TipoUsuario.objects.get(descricao='Paciente')
     return usuarios.models.Usuario.objects.filter(tipo=tipo)
+
+
+def get_or_create_grupo(nome):
+    g = Group.objects.get_or_create(name=nome)
+    return g[0]

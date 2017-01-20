@@ -2,6 +2,7 @@
   pk: 1
   fields:
     descricao: Médico
+
 - model: usuarios.TipoUsuario
   pk: 2
   fields:

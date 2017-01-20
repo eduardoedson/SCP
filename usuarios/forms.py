@@ -1,13 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group, User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
-from utils import TIPO_TELEFONE, YES_NO_CHOICES
+from utils import TIPO_TELEFONE, YES_NO_CHOICES, get_or_create_grupo
 
 from .models import Telefone, Usuario
 
@@ -160,6 +160,7 @@ class UsuarioForm(ModelForm):
         u = User.objects.create(username=usuario.username, email=usuario.email)
         u.set_password(self.cleaned_data['password'])
         u.is_active = True
+        u.groups.add(get_or_create_grupo(self.cleaned_data['tipo'].descricao))
 
         u.save()
         usuario.user = u
@@ -273,7 +274,9 @@ class UsuarioEditForm(ModelForm):
         # User
         u = usuario.user
         u.email = usuario.email
-        u.save()
+        u.groups.remove(u.groups.first())
+        u.groups.add(get_or_create_grupo(self.cleaned_data['tipo'].descricao))
 
+        u.save()
         usuario.save()
         return usuario
