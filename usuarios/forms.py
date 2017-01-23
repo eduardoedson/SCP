@@ -7,13 +7,12 @@ from django.db import transaction
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
-from utils import (TIPO_TELEFONE, YES_NO_CHOICES, get_or_create_grupo,
-                   valida_igualdade)
+from utils import TIPO_TELEFONE, YES_NO_CHOICES, get_or_create_grupo
 
 from .models import Telefone, Usuario
 
 
-class MudarSenha(forms.Form):
+class MudarSenhaForm(forms.Form):
     nova_senha = forms.CharField(
         label="Nova Senha", max_length=30,
         widget=forms.PasswordInput(
@@ -27,23 +26,6 @@ class MudarSenha(forms.Form):
           attrs={'class': 'form-control form-control-lg',
                  'name': 'confirmar_senha',
                  'placeholder': 'Confirmar Senha'}))
-
-    def clean(self):
-        if ('nova_senha' not in self.cleaned_data or
-                'confirmar_senha' not in self.cleaned_data):
-            raise ValidationError(_('Favor informar as senhas.'))
-
-        if (not valida_igualdade(self.cleaned_data['senha'],
-                                 self.cleaned_data['confirmar_senha'])):
-
-            raise 'As senhas não conferem.'
-
-        try:
-            validate_password(self.cleaned_data['senha'])
-        except ValidationError as error:
-            raise ValidationError(error)
-
-        return self.cleaned_data
 
 
 class LoginForm(AuthenticationForm):

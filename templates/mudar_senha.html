@@ -39,8 +39,9 @@
 
   <form method="post">
     {% csrf_token %}
-    <div class="box2">{{form.password}}</div>
-    <div class="box2">{{form.confirm_password}}</div>
+    <font color="red" ><p style="font-size:23px; text-align:center;">{{msg}}<br /><br /></font>
+    <div class="box2">{{form.nova_senha}}</div>
+    <div class="box2">{{form.confirmar_senha}}</div>
     <br />
       <input class="btn btn-info btn-block" type="submit" value="Salvar" />
   </form>
