@@ -46,6 +46,6 @@ Criar banco:<br />
 Rodando projeto:<br />
 ---------------------------------------
 * Rode:<br />
-  ``./manage.py runserver``<br />
+  ``./manage.py runserver --insecure``<br />
 * Acesse no navegador:<br />
   ``localhost:8000``<br />
