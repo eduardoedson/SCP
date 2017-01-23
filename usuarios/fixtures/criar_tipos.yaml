@@ -12,3 +12,8 @@
   pk: 3
   fields:
     descricao: Administrador
+
+- model: usuarios.PlanoSaude
+  pk: 1
+  fields:
+    descricao: Particular
