@@ -34,22 +34,12 @@ class ConsultaCrud(Crud):
         form_class = ConsultaForm
 
     class ListView(crud.base.CrudListView):
-        pass
-        # def get_queryset(self):
-        #     queryset = super().get_queryset()
-        #
-        #     user_id = recupera_user(self.request)
-        #     if user_id == 0:  # Administrador
-        #         return queryset
-        #
-        #     if user_id == -1:  # Deslogado
-        #         return redirect(reverse('/404'))
-        #
-        #     usuario = Usuario.objects.get(pk=user_id)
-        #     if usuario.tipo.descricao == 'Médico':
-        #         queryset = queryset.filter(medico=usuario)
-        #     elif usuario.tipo.descricao == 'Paciente':
-        #         queryset = queryset.filter(paciente=usuario)
-        #     else:
-        #         return redirect(reverse('/404'))
-        #     return queryset
+        def get_queryset(self):
+            qs = super().get_queryset()
+            usuario = Usuario.objects.get(user_id=self.request.user.id)
+            if usuario.tipo.descricao == 'Médico':
+                return qs.filter(medico=usuario)
+            elif usuario.tipo.descricao == 'Paciente':
+                return qs.filter(paciente=usuario)
+            else:
+                return qs

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n user_tag %}
 
 {% block base_content %}
 
@@ -7,36 +7,32 @@
     {% block actions %}
 
       {% block sub_actions %}
-        {% if tipo == 'Administrador' %}
           <div class="actions btn-group btn-group-sm" role="group">
             {% if view.list_url %}
               <a href="{{ view.list_url }}" class="btn btn-default">{% trans 'Listar' %} {{view.verbose_name_plural}}</a>
             {% endif %}
-            {% if view.create_url %}
+            {% if view.create_url and request.user|has_group:"Administrador" or request.user|has_group:"Médico" %}
               <a href="{{ view.create_url }}" class="btn btn-default">
                 {% blocktrans with verbose_name=view.verbose_name %} Adicionar {{ verbose_name }} {% endblocktrans %}
               </a>
             {% endif %}
           </div>
-        {% endif %}
       {% endblock sub_actions %}
 
-      {% if tipo == 'Administrador' %}
-        <div class="editons pull-right">
-          {% block editions %}
-            {% if view.update_url or view.delete_url %}
-              <div class="actions btn-group" role="group">
-                {% if view.update_url %}
-                  <a href="{{ view.update_url }}" class="btn btn-warning">{% trans 'Editar' %}</a>
-                {% endif %}
-                {% if view.delete_url %}
-                  <a href="{{ view.delete_url }}" class="btn btn-danger btn-excluir">{% trans 'Excluir' %}</a>
-                {% endif %}
-              </div>
-            {% endif %}
-          {% endblock %}
-        </div>
-      {% endif %}
+      <div class="editons pull-right">
+        {% block editions %}
+          {% if view.update_url or view.delete_url and request.user|has_group:"Administrador" or  request.user|has_group:"Médico" %}
+            <div class="actions btn-group" role="group">
+              {% if view.update_url and request.user|has_group:"Administrador" or  request.user|has_group:"Médico" %}
+                <a href="{{ view.update_url }}" class="btn btn-warning">{% trans 'Editar' %}</a>
+              {% endif %}
+              {% if view.delete_url and request.user|has_group:"Administrador" or  request.user|has_group:"Médico" %}
+                <a href="{{ view.delete_url }}" class="btn btn-danger btn-excluir">{% trans 'Excluir' %}</a>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endblock %}
+      </div>
 
     {% endblock actions %}
   </div>

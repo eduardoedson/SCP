@@ -1,15 +1,17 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n user_tag %}
 
 {% block base_content %}
 
   {% block buttons %}
-    <div class="actions btn-group pull-right" role="group">
-      <a href="{{ view.create_url }}" class="btn btn-default">
-        {% blocktrans with verbose_name=view.verbose_name %} Adicionar {{ verbose_name }} {% endblocktrans %}
-      </a>
-      {% block more_buttons %}{% endblock more_buttons %}
-    </div>
+    {% if request.user|has_group:"Administrador" or request.user|has_group:"Médico" %}
+      <div class="actions btn-group pull-right" role="group">
+        <a href="{{ view.create_url }}" class="btn btn-default">
+          {% blocktrans with verbose_name=view.verbose_name %} Adicionar {{ verbose_name }} {% endblocktrans %}
+        </a>
+        {% block more_buttons %}{% endblock more_buttons %}
+      </div>
+    {% endif %}
   {% endblock buttons %}
 
 
