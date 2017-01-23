@@ -15,6 +15,10 @@ from .models import PlanoSaude, TipoUsuario, Usuario
 
 
 def mudar_senha(request):
+
+    if not request.user.is_authenticated():
+        return render(request, '403.html', {})
+
     if request.method == 'GET':
         context = {'form': MudarSenhaForm}
         return render(request, 'mudar_senha.html', context)
@@ -36,6 +40,7 @@ def mudar_senha(request):
             context = {'form': MudarSenhaForm,
                        'msg': 'Formulário inválido.'}
             return render(request, 'mudar_senha.html', context)
+
 
 class PlanoSaudeCrud(Crud):
     model = PlanoSaude
