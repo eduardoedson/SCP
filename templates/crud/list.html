@@ -4,7 +4,7 @@
 {% block base_content %}
 
   {% block buttons %}
-    {% if request.user|has_group:"Administrador" or request.user|has_group:"Médico" %}
+    {% if request.user|has_group:"Administrador" or request.user|has_group:"Médico" or tipo == 'Administrador' %}
       <div class="actions btn-group pull-right" role="group">
         <a href="{{ view.create_url }}" class="btn btn-default">
           {% blocktrans with verbose_name=view.verbose_name %} Adicionar {{ verbose_name }} {% endblocktrans %}

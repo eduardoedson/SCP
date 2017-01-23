@@ -11,7 +11,7 @@
             {% if view.list_url %}
               <a href="{{ view.list_url }}" class="btn btn-default">{% trans 'Listar' %} {{view.verbose_name_plural}}</a>
             {% endif %}
-            {% if view.create_url and request.user|has_group:"Administrador" or request.user|has_group:"Médico" %}
+            {% if view.create_url and request.user|has_group:"Administrador" or request.user|has_group:"Médico" or tipo == 'Administrador' %}
               <a href="{{ view.create_url }}" class="btn btn-default">
                 {% blocktrans with verbose_name=view.verbose_name %} Adicionar {{ verbose_name }} {% endblocktrans %}
               </a>
@@ -21,12 +21,12 @@
 
       <div class="editons pull-right">
         {% block editions %}
-          {% if view.update_url or view.delete_url and request.user|has_group:"Administrador" or  request.user|has_group:"Médico" %}
+          {% if view.update_url or view.delete_url and request.user|has_group:"Administrador" or  request.user|has_group:"Médico" or tipo == 'Administrador' %}
             <div class="actions btn-group" role="group">
-              {% if view.update_url and request.user|has_group:"Administrador" or  request.user|has_group:"Médico" %}
+              {% if view.update_url and request.user|has_group:"Administrador" or  request.user|has_group:"Médico" or tipo == 'Administrador' %}
                 <a href="{{ view.update_url }}" class="btn btn-warning">{% trans 'Editar' %}</a>
               {% endif %}
-              {% if view.delete_url and request.user|has_group:"Administrador" or  request.user|has_group:"Médico" %}
+              {% if view.delete_url and request.user|has_group:"Administrador" or  request.user|has_group:"Médico" or tipo == 'Administrador' %}
                 <a href="{{ view.delete_url }}" class="btn btn-danger btn-excluir">{% trans 'Excluir' %}</a>
               {% endif %}
             </div>

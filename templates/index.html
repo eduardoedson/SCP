@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block base_content %}
+  <font color="green" ><p style="font-size:23px; text-align:center;">{{msg}}<br /></font>
   <p style="font-size:20px;">Olá, <font color="#5AB9E8"><b>{{nome}}</b></font>. Você está logado como <font color="#5AB9E8"><b>{{tipo}}</b></font> e possui as seguintes opções de menu:</p><br /><br />
-  <font color="green" ><p style="font-size:23px; text-align:center;">{{msg}}<br /><br /></font>
 
   {% if tipo == 'Administrador' %}
     <a href="{% url 'usuarios:tipousuario_list' %}" class="btn btn-info btn-lg">Ver Tipos de Usuário</a></a>

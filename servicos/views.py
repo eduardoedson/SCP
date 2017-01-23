@@ -1,5 +1,6 @@
 from braces.views import GroupRequiredMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render
@@ -36,10 +37,14 @@ class ConsultaCrud(Crud):
     class ListView(crud.base.CrudListView):
         def get_queryset(self):
             qs = super().get_queryset()
-            usuario = Usuario.objects.get(user_id=self.request.user.id)
-            if usuario.tipo.descricao == 'Médico':
-                return qs.filter(medico=usuario)
-            elif usuario.tipo.descricao == 'Paciente':
-                return qs.filter(paciente=usuario)
-            else:
+            try:
+                usuario = Usuario.objects.get(user_id=self.request.user.id)
+            except ObjectDoesNotExist:
                 return qs
+            else:
+                if usuario.tipo.descricao == 'Médico':
+                    return qs.filter(medico=usuario)
+                elif usuario.tipo.descricao == 'Paciente':
+                    return qs.filter(paciente=usuario)
+                else:
+                    return qs
