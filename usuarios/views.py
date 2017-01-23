@@ -1,7 +1,6 @@
 from braces.views import GroupRequiredMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 from django.shortcuts import render
 from django.views.generic import DetailView
 

@@ -1,6 +1,4 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse
-from django.http.response import HttpResponseRedirect
 
 from usuarios.models import Usuario
 

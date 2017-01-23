@@ -1,13 +1,9 @@
 from braces.views import GroupRequiredMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse
-from django.http.response import HttpResponseRedirect
-from django.shortcuts import redirect, render
 
 import crud.base
 from crud.base import Crud
-from scp.context_processors import recupera_user
 from scp.settings import LOGIN_REDIRECT_URL
 from usuarios.models import Usuario
 

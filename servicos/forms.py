@@ -1,11 +1,12 @@
+from datetime import datetime
+
 from django import forms
 from django.forms import ModelForm
-from django.utils.translation import ugettext_lazy as _
-from usuarios.models import Usuario
-from .models import Consulta
-from utils import get_medicos, get_pacientes
+
 from easy_select2 import Select2
-from datetime import datetime
+from utils import get_medicos, get_pacientes
+
+from .models import Consulta
 
 
 class ConsultaForm(ModelForm):
