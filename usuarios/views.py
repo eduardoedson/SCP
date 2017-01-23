@@ -1,14 +1,41 @@
 from braces.views import GroupRequiredMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.shortcuts import render
 from django.views.generic import DetailView
 
 import crud.base
 from crud.base import Crud
 from scp.settings import LOGIN_REDIRECT_URL
+from utils import valida_igualdade
 
-from .forms import UsuarioEditForm, UsuarioForm
+from .forms import MudarSenhaForm, UsuarioEditForm, UsuarioForm
 from .models import PlanoSaude, TipoUsuario, Usuario
 
+
+def mudar_senha(request):
+    if request.method == 'GET':
+        context = {'form': MudarSenhaForm}
+        return render(request, 'mudar_senha.html', context)
+
+    elif request.method == 'POST':
+        form = MudarSenhaForm(request.POST)
+        if form.is_valid():
+            if (not valida_igualdade(form.cleaned_data['nova_senha'],
+                                     form.cleaned_data['confirmar_senha'])):
+                context = {'form': MudarSenhaForm,
+                           'msg': 'As senhas não conferem.'}
+                return render(request, 'mudar_senha.html', context)
+            else:
+                user = User.objects.get(id=request.user.id)
+                user.set_password(form.cleaned_data['nova_senha'])
+                user.save()
+            return render(request, 'index.html', {'msg': 'Senha alterada.'})
+        else:
+            context = {'form': MudarSenhaForm,
+                       'msg': 'Formulário inválido.'}
+            return render(request, 'mudar_senha.html', context)
 
 class PlanoSaudeCrud(Crud):
     model = PlanoSaude

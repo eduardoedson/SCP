@@ -7,6 +7,7 @@
 
 {% block base_content %}
   <p style="font-size:20px;">Olá, <font color="#5AB9E8"><b>{{nome}}</b></font>. Você está logado como <font color="#5AB9E8"><b>{{tipo}}</b></font> e possui as seguintes opções de menu:</p><br /><br />
+  <font color="green" ><p style="font-size:23px; text-align:center;">{{msg}}<br /><br /></font>
 
   {% if tipo == 'Administrador' %}
     <a href="{% url 'usuarios:tipousuario_list' %}" class="btn btn-info btn-lg">Ver Tipos de Usuário</a></a>
@@ -32,7 +33,7 @@
     <font color="red">Por falta de configuração esse tipo de usuário não possui nenhuma funcionalidade disponível.</font><br />
   {% endif %}
 
-  <a href="" class="btn btn-warning btn-lg">Mudar Senha</a></a>
+  <a href="{% url 'usuarios:mudar_senha' %}" class="btn btn-warning btn-lg">Mudar Senha</a></a>
   <a href="{% url 'logout' %}" class="btn btn-danger btn-lg">Sair</a></a>
 
 {% endblock %}

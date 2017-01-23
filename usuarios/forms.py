@@ -12,6 +12,22 @@ from utils import TIPO_TELEFONE, YES_NO_CHOICES, get_or_create_grupo
 from .models import Telefone, Usuario
 
 
+class MudarSenhaForm(forms.Form):
+    nova_senha = forms.CharField(
+        label="Nova Senha", max_length=30,
+        widget=forms.PasswordInput(
+          attrs={'class': 'form-control form-control-lg',
+                 'name': 'senha',
+                 'placeholder': 'Nova Senha'}))
+
+    confirmar_senha = forms.CharField(
+        label="Confirmar Senha", max_length=30,
+        widget=forms.PasswordInput(
+          attrs={'class': 'form-control form-control-lg',
+                 'name': 'confirmar_senha',
+                 'placeholder': 'Confirmar Senha'}))
+
+
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
         label="Username", max_length=30,
