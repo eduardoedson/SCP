@@ -32,7 +32,10 @@ def mudar_senha(request):
                 user.set_password(form.cleaned_data['nova_senha'])
                 user.save()
             return render(request, 'index.html', {'msg': 'Senha alterada.'})
-
+        else:
+            context = {'form': MudarSenhaForm,
+                       'msg': 'Formulário inválido.'}
+            return render(request, 'mudar_senha.html', context)
 
 class PlanoSaudeCrud(Crud):
     model = PlanoSaude
