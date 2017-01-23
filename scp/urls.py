@@ -26,7 +26,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^home/$', TemplateView.as_view(
         template_name='index.html'), name='home'),
-    url(r'^404/$', TemplateView.as_view(template_name='404.html'), name='404'),
 
     url(r'', include(usuarios.urls)),
     url(r'', include(servicos.urls)),

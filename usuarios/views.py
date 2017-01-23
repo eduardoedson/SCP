@@ -10,6 +10,10 @@ from .forms import UsuarioEditForm, UsuarioForm
 from .models import PlanoSaude, TipoUsuario, Usuario
 
 
+def mudar_senha(request):
+    pass
+
+
 class PlanoSaudeCrud(Crud):
     model = PlanoSaude
     help_path = ''

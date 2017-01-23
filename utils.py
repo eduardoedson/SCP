@@ -64,3 +64,9 @@ def get_pacientes():
 def get_or_create_grupo(nome):
     g = Group.objects.get_or_create(name=nome)
     return g[0]
+
+
+def valida_igualdade(texto1, texto2):
+    if texto1 != texto2:
+        return False
+    return True
