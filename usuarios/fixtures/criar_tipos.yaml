@@ -7,3 +7,8 @@
   pk: 2
   fields:
     descricao: Paciente
+
+- model: usuarios.TipoUsuario
+  pk: 3
+  fields:
+    descricao: Administrador

@@ -41,6 +41,10 @@ def recupera_usuario(user_pk):
             context = {'user_pk': user_pk,
                        'nome': usuario.nome,
                        'tipo': 'Paciente'}
+        elif usuario.tipo.descricao == 'Administrador':
+            context = {'user_pk': user_pk,
+                       'nome': usuario.nome,
+                       'tipo': 'Administrador'}
         else:
             context = {'user_pk': user_pk,
                        'nome': usuario.nome,

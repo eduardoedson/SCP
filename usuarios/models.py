@@ -58,7 +58,7 @@ class Usuario(models.Model):
     data_cadastro = models.DateField(auto_now_add=True)
     tipo = models.ForeignKey(TipoUsuario, verbose_name=_('Tipo de Usuário'))
     plano = models.ForeignKey(
-        PlanoSaude, verbose_name=_('Plano de Saúde'), blank=True)
+        PlanoSaude, verbose_name=_('Plano de Saúde'), blank=True, null=True)
 
     # Telefones
     primeiro_telefone = models.ForeignKey(
