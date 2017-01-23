@@ -1,3 +1,4 @@
+from braces.views import GroupRequiredMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView
 
@@ -9,40 +10,51 @@ from .forms import UsuarioEditForm, UsuarioForm
 from .models import PlanoSaude, TipoUsuario, Usuario
 
 
-class PlanoSaudeCrud(LoginRequiredMixin, Crud):
+class PlanoSaudeCrud(Crud):
     model = PlanoSaude
     help_path = ''
 
-    class BaseMixin(LoginRequiredMixin, crud.base.CrudBaseMixin):
+    class BaseMixin(GroupRequiredMixin,
+                    LoginRequiredMixin,
+                    crud.base.CrudBaseMixin):
+
         list_field_names = ['descricao']
         login_url = LOGIN_REDIRECT_URL
         raise_exception = True
+        group_required = 'Administrador'
 
 
-class TipoUsuarioCrud(LoginRequiredMixin, Crud):
+class TipoUsuarioCrud(Crud):
     model = TipoUsuario
     help_path = ''
 
-    class BaseMixin(LoginRequiredMixin, crud.base.CrudBaseMixin):
+    class BaseMixin(GroupRequiredMixin,
+                    LoginRequiredMixin,
+                    crud.base.CrudBaseMixin):
+
         list_field_names = ['descricao']
         login_url = LOGIN_REDIRECT_URL
         raise_exception = True
+        group_required = 'Administrador'
 
 
-class UsuarioCrud(LoginRequiredMixin, Crud):
+class UsuarioCrud(Crud):
     model = Usuario
     help_path = ''
 
-    class BaseMixin(LoginRequiredMixin, crud.base.CrudBaseMixin):
-        list_field_names = [
-            'username', 'nome', 'data_nascimento', 'plano']
+    class BaseMixin(GroupRequiredMixin,
+                    LoginRequiredMixin,
+                    crud.base.CrudBaseMixin):
+
+        list_field_names = ['username', 'nome', 'data_nascimento', 'plano']
         login_url = LOGIN_REDIRECT_URL
         raise_exception = True
+        group_required = 'Administrador'
 
-    class CreateView(LoginRequiredMixin, crud.base.CrudCreateView):
+    class CreateView(crud.base.CrudCreateView):
         form_class = UsuarioForm
 
-    class UpdateView(LoginRequiredMixin, crud.base.CrudUpdateView):
+    class UpdateView(crud.base.CrudUpdateView):
         form_class = UsuarioEditForm
 
         def get_initial(self):
@@ -67,7 +79,7 @@ class UsuarioCrud(LoginRequiredMixin, Crud):
         def layout_key(self):
             return 'UsuarioEdit'
 
-    class DetailView(LoginRequiredMixin, crud.base.CrudDetailView):
+    class DetailView(crud.base.CrudDetailView):
 
         def get_context_data(self, **kwargs):
             context = super(DetailView, self).get_context_data(**kwargs)
