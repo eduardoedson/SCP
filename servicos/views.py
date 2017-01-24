@@ -1,5 +1,6 @@
 from braces.views import GroupRequiredMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 import crud.base
@@ -26,6 +27,20 @@ class ConsultaCrud(Crud):
 
     class CreateView(crud.base.CrudCreateView):
         form_class = ConsultaForm
+
+        def get_initial(self):
+            user = User.objects.get(id=self.request.user.id)
+            try:
+                usuario = Usuario.objects.get(user_id=user.id)
+            except ObjectDoesNotExist:
+                pass
+            else:
+                tipo = usuario.tipo
+
+                if tipo.descricao == 'Médico':
+                    self.initial['medico'] = usuario
+
+            return self.initial.copy()
 
     class UpdateView(crud.base.CrudUpdateView):
         form_class = ConsultaForm
