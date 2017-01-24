@@ -165,4 +165,8 @@ BOWER_INSTALLED_APPS = (
     'jsdiff#2.2.1',
 )
 
+SASS_PROCESSOR_INCLUDE_DIRS = (BOWER_COMPONENTS_ROOT.child(
+    'bower_components', 'bootstrap-sass', 'assets', 'stylesheets'),
+)
+
 LOGIN_REDIRECT_URL = '/home'
