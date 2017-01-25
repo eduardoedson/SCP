@@ -15,7 +15,11 @@
     <table style="width:100%" class="table table-hover">
       {% for obj in object_list %}
         <tr>
-          <td><a href="">{{ obj.descricao }}</a></td>
+          {% if request.user|has_group:"Administrador" or request.user|has_group:"Médico" or tipo == 'Administrador' %}
+            <td><a href="{% url 'usuarios:especialidade_update' obj.pk %}">{{ obj.descricao }}</a></td>
+          {% else %}
+            <td>{{ obj.descricao }}</td>
+          {% endif %}
         </tr>
       {% endfor %}
     </table>

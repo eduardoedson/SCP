@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 import crud.base
 from crud.base import Crud
@@ -79,7 +79,8 @@ class UsuarioCrud(Crud):
                     LoginRequiredMixin,
                     crud.base.CrudBaseMixin):
 
-        list_field_names = ['nome', 'data_nascimento', 'tipo']
+        list_field_names = ['nome', 'tipo',  'data_nascimento']
+        ordering = ['nome', 'tipo']
         login_url = LOGIN_REDIRECT_URL
         raise_exception = True
         group_required = 'Administrador'
@@ -144,7 +145,6 @@ class EspecialidadeCreateView(GroupRequiredMixin,
 
     template_name = 'crud/form.html'
     form_class = EspecialidadeForm
-    form_valid_message = 'Especialidade cadastrada com sucesso!'
 
     def get_success_url(self, usuario):
         return reverse('usuarios:usuario_detail',
@@ -186,3 +186,26 @@ class EspecialidadeListView(GroupRequiredMixin,
             page_obj.number, paginator.num_pages)
         context['pk'] = self.kwargs['pk']
         return context
+
+
+class EspecialidadeUpdateView(GroupRequiredMixin,
+                              LoginRequiredMixin,
+                              UpdateView):
+
+    login_url = LOGIN_REDIRECT_URL
+    raise_exception = True
+    group_required = ['Administrador', 'Médico']
+
+    template_name = 'crud/form.html'
+    form_class = EspecialidadeForm
+
+    def get_success_url(self, usuario):
+        return reverse('usuarios:especialidade_list',
+                       kwargs={'pk': usuario.pk})
+
+    def get_queryset(self):
+        return Especialidade.objects.filter(pk=self.kwargs['pk'])
+
+    def form_valid(self, form):
+        especialidade = form.save()
+        return redirect(self.get_success_url(especialidade.medico))
