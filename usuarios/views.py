@@ -77,7 +77,7 @@ class UsuarioCrud(Crud):
                     LoginRequiredMixin,
                     crud.base.CrudBaseMixin):
 
-        list_field_names = ['username', 'nome', 'data_nascimento', 'plano']
+        list_field_names = ['nome', 'data_nascimento', 'tipo']
         login_url = LOGIN_REDIRECT_URL
         raise_exception = True
         group_required = 'Administrador'
