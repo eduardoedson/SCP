@@ -98,7 +98,7 @@ class UsuarioCrud(Crud):
         ordering = ['nome', 'tipo']
         login_url = LOGIN_REDIRECT_URL
         raise_exception = True
-        group_required = 'Administrador'
+        group_required = ['Administrador']
 
     class CreateView(crud.base.CrudCreateView):
         form_class = UsuarioForm

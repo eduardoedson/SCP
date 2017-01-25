@@ -8,13 +8,13 @@
 
       {% block sub_actions %}
           <div class="actions btn-group btn-group-sm" role="group">
-            {% if view.list_url %}
-              <a href="{{ view.list_url }}" class="btn btn-default">{% trans 'Listar' %} {{view.verbose_name_plural}}</a>
-            {% endif %}
             {% if view.create_url and request.user|has_group:"Administrador" or request.user|has_group:"Médico" or tipo == 'Administrador' %}
-              <a href="{{ view.create_url }}" class="btn btn-default">
-                {% blocktrans with verbose_name=view.verbose_name %} Adicionar {{ verbose_name }} {% endblocktrans %}
-              </a>
+              {% if view.list_url %}
+                <a href="{{ view.list_url }}" class="btn btn-default">{% trans 'Listar' %} {{view.verbose_name_plural}}</a>
+              {% endif %}
+                <a href="{{ view.create_url }}" class="btn btn-default">
+                  {% blocktrans with verbose_name=view.verbose_name %} Adicionar {{ verbose_name }} {% endblocktrans %}
+                </a>
             {% endif %}
           </div>
       {% endblock sub_actions %}
