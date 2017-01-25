@@ -1,6 +1,14 @@
 {% extends "crud/detail.html" %}
 {% load i18n %}
 
+{% block extra_actions %}
+  {% if usuario.tipo.descricao == 'Médico' %}
+    <br /><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="{% url 'usuarios:especialidade_list' usuario.pk %}" class="btn btn-default">Especialidades</a>
+  {% endif %}
+{% endblock extra_actions %}
+
 {% block extrablock %}
   <h2 class="legend"><b>Telefones</b></h2>
   <table style="width:100%" class="table table-hover">

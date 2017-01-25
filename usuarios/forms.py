@@ -1,3 +1,5 @@
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Fieldset, Layout
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
@@ -7,9 +9,10 @@ from django.db import transaction
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
+from crispy_layout_mixin import form_actions, to_row
 from utils import TIPO_TELEFONE, YES_NO_CHOICES, get_or_create_grupo
 
-from .models import Telefone, Usuario
+from .models import Especialidade, Telefone, Usuario
 
 
 class MudarSenhaForm(forms.Form):
@@ -296,3 +299,23 @@ class UsuarioEditForm(ModelForm):
         u.save()
         usuario.save()
         return usuario
+
+
+class EspecialidadeForm(ModelForm):
+
+    class Meta:
+        model = Especialidade
+        fields = ['descricao', 'medico']
+        widgets = {'medico': forms.HiddenInput()}
+
+    def __init__(self, *args, **kwargs):
+        row1 = to_row([('descricao', 12)])
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Fieldset(
+                _('Especialidade'),
+                row1, form_actions(save_label='Salvar')
+            )
+        )
+        super(EspecialidadeForm, self).__init__(*args, **kwargs)

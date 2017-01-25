@@ -47,3 +47,7 @@ TipoUsuario:
 PlanoSaude:
   Plano de Saúde:
   - descricao
+
+Especialidade:
+  Especialidade:
+  - descricao

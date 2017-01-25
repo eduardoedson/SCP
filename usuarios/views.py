@@ -1,16 +1,18 @@
 from braces.views import GroupRequiredMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.shortcuts import render
-from django.views.generic import DetailView
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect, render
+from django.views.generic import CreateView, DetailView, ListView
 
 import crud.base
 from crud.base import Crud
 from scp.settings import LOGIN_REDIRECT_URL
-from utils import valida_igualdade
+from utils import make_pagination, valida_igualdade
 
-from .forms import MudarSenhaForm, UsuarioEditForm, UsuarioForm
-from .models import PlanoSaude, TipoUsuario, Usuario
+from .forms import (EspecialidadeForm, MudarSenhaForm, UsuarioEditForm,
+                    UsuarioForm)
+from .models import Especialidade, PlanoSaude, TipoUsuario, Usuario
 
 
 def mudar_senha(request):
@@ -130,3 +132,57 @@ class UsuarioCrud(Crud):
         @property
         def layout_key(self):
             return 'UsuarioDetail'
+
+
+class EspecialidadeCreateView(GroupRequiredMixin,
+                              LoginRequiredMixin,
+                              CreateView):
+
+    login_url = LOGIN_REDIRECT_URL
+    raise_exception = True
+    group_required = ['Administrador', 'Médico']
+
+    template_name = 'crud/form.html'
+    form_class = EspecialidadeForm
+    form_valid_message = 'Especialidade cadastrada com sucesso!'
+
+    def get_success_url(self, usuario):
+        return reverse('usuarios:usuario_detail',
+                       kwargs={'pk': usuario.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super(
+            EspecialidadeCreateView, self).get_context_data(**kwargs)
+        usuario = Usuario.objects.get(pk=self.kwargs['pk'])
+        context['form'].fields['medico'].initial = usuario
+        return context
+
+    def form_valid(self, form):
+        especialidade = form.save()
+        return redirect(self.get_success_url(especialidade.medico))
+
+
+class EspecialidadeListView(GroupRequiredMixin,
+                            LoginRequiredMixin,
+                            ListView):
+
+    login_url = LOGIN_REDIRECT_URL
+    raise_exception = True
+    group_required = ['Administrador', 'Médico', 'Paciente']
+
+    template_name = 'crud/especialidade_list.html'
+    model = Especialidade
+    ordening = ['descricao']
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Especialidade.objects.filter(medico_id=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super(EspecialidadeListView, self).get_context_data(**kwargs)
+        paginator = context['paginator']
+        page_obj = context['page_obj']
+        context['page_range'] = make_pagination(
+            page_obj.number, paginator.num_pages)
+        context['pk'] = self.kwargs['pk']
+        return context
