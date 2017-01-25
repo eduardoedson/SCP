@@ -12,7 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from crispy_layout_mixin import form_actions, to_row
 from utils import TIPO_TELEFONE, YES_NO_CHOICES, get_or_create_grupo
 
-from .models import Especialidade, Telefone, Usuario
+from .models import EspecialidadeMedico, Telefone, Usuario
 
 
 class MudarSenhaForm(forms.Form):
@@ -301,10 +301,10 @@ class UsuarioEditForm(ModelForm):
         return usuario
 
 
-class EspecialidadeForm(ModelForm):
+class EspecialidadeMedicoForm(ModelForm):
 
     class Meta:
-        model = Especialidade
+        model = EspecialidadeMedico
         fields = ['descricao', 'medico']
         widgets = {'medico': forms.HiddenInput()}
 
@@ -318,4 +318,4 @@ class EspecialidadeForm(ModelForm):
                 row1, form_actions(save_label='Salvar')
             )
         )
-        super(EspecialidadeForm, self).__init__(*args, **kwargs)
+        super(EspecialidadeMedicoForm, self).__init__(*args, **kwargs)

@@ -95,9 +95,20 @@ class Usuario(models.Model):
 
 
 class Especialidade(models.Model):
-    medico = models.ForeignKey(Usuario)
     descricao = models.CharField(
         max_length=30, verbose_name=('Descrição'), unique=True)
+
+    class Meta:
+        verbose_name = _('Especialidade')
+        verbose_name_plural = _('Especialidades')
+
+    def __str__(self):
+        return self.descricao
+
+
+class EspecialidadeMedico(models.Model):
+    medico = models.ForeignKey(Usuario)
+    descricao = models.ForeignKey(Especialidade)
 
     class Meta:
         verbose_name = _('Especialidade')

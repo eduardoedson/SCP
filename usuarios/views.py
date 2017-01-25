@@ -10,9 +10,10 @@ from crud.base import Crud
 from scp.settings import LOGIN_REDIRECT_URL
 from utils import make_pagination, valida_igualdade
 
-from .forms import (EspecialidadeForm, MudarSenhaForm, UsuarioEditForm,
+from .forms import (EspecialidadeMedicoForm, MudarSenhaForm, UsuarioEditForm,
                     UsuarioForm)
-from .models import Especialidade, PlanoSaude, TipoUsuario, Usuario
+from .models import (Especialidade, EspecialidadeMedico, PlanoSaude,
+                     TipoUsuario, Usuario)
 
 
 def mudar_senha(request):
@@ -41,6 +42,20 @@ def mudar_senha(request):
             context = {'form': MudarSenhaForm,
                        'msg': 'Formulário inválido.'}
             return render(request, 'mudar_senha.html', context)
+
+
+class EspecialidadeCrud(Crud):
+    model = Especialidade
+    help_path = ''
+
+    class BaseMixin(GroupRequiredMixin,
+                    LoginRequiredMixin,
+                    crud.base.CrudBaseMixin):
+
+        list_field_names = ['descricao']
+        login_url = LOGIN_REDIRECT_URL
+        raise_exception = True
+        group_required = 'Administrador'
 
 
 class PlanoSaudeCrud(Crud):
@@ -144,7 +159,7 @@ class EspecialidadeCreateView(GroupRequiredMixin,
     group_required = ['Administrador', 'Médico']
 
     template_name = 'crud/form.html'
-    form_class = EspecialidadeForm
+    form_class = EspecialidadeMedicoForm
 
     def get_success_url(self, usuario):
         return reverse('usuarios:usuario_detail',
@@ -170,13 +185,12 @@ class EspecialidadeListView(GroupRequiredMixin,
     raise_exception = True
     group_required = ['Administrador', 'Médico', 'Paciente']
 
-    template_name = 'crud/especialidade_list.html'
-    model = Especialidade
+    model = EspecialidadeMedico
     ordening = ['descricao']
     paginate_by = 10
 
     def get_queryset(self):
-        return Especialidade.objects.filter(medico_id=self.kwargs['pk'])
+        return EspecialidadeMedico.objects.filter(medico_id=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):
         context = super(EspecialidadeListView, self).get_context_data(**kwargs)
@@ -197,14 +211,14 @@ class EspecialidadeUpdateView(GroupRequiredMixin,
     group_required = ['Administrador', 'Médico']
 
     template_name = 'crud/form.html'
-    form_class = EspecialidadeForm
+    form_class = EspecialidadeMedicoForm
 
     def get_success_url(self, usuario):
         return reverse('usuarios:especialidade_list',
                        kwargs={'pk': usuario.pk})
 
     def get_queryset(self):
-        return Especialidade.objects.filter(pk=self.kwargs['pk'])
+        return EspecialidadeMedico.objects.filter(pk=self.kwargs['pk'])
 
     def form_valid(self, form):
         especialidade = form.save()
