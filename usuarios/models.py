@@ -107,12 +107,13 @@ class Especialidade(models.Model):
 
 
 class EspecialidadeMedico(models.Model):
-    medico = models.ForeignKey(Usuario)
-    descricao = models.ForeignKey(Especialidade)
+    medico = models.ForeignKey(Usuario, verbose_name=('Médico'))
+    especialidade = models.ForeignKey(Especialidade,
+                                      verbose_name=('Especialidade'))
 
     class Meta:
         verbose_name = _('Especialidade')
         verbose_name_plural = _('Especialidades')
 
     def __str__(self):
-        return self.descricao
+        return '%s - %s' % (self.medico.nome, self.especialidade.descricao)

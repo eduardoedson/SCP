@@ -1,18 +1,17 @@
 {% extends "crud/detail.html" %}
 {% load i18n %}
 
-{% block extra_actions %}
-  {% if usuario.tipo.descricao == 'Médico' %}
-    <br /><br />
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="{% url 'usuarios:especialidade_list' usuario.pk %}" class="btn btn-default">Especialidades</a>
-  {% endif %}
-{% endblock extra_actions %}
-
 {% block extrablock %}
   <h2 class="legend"><b>Telefones</b></h2>
   <table style="width:100%" class="table table-hover">
     <tr><td>{{telefones|first}}</td></tr>
     <tr><td>{{telefones|last}}</td></tr>
+  </table>
+
+  <h2 class="legend"><b>Especialidades</b></h2>
+  <table style="width:100%" class="table table-hover">
+    {% for e in especialidades %}
+      <tr><td>{{e.especialidade.descricao}}</td></tr>
+    {% endfor %}
   </table>
 {% endblock %}

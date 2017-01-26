@@ -1,6 +1,7 @@
 from braces.views import GroupRequiredMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
@@ -42,6 +43,37 @@ def mudar_senha(request):
             context = {'form': MudarSenhaForm,
                        'msg': 'Formulário inválido.'}
             return render(request, 'mudar_senha.html', context)
+
+
+class EspecialidadeMedicoCrud(Crud):
+    model = EspecialidadeMedico
+    help_path = ''
+
+    class BaseMixin(GroupRequiredMixin,
+                    LoginRequiredMixin,
+                    crud.base.CrudBaseMixin):
+
+        list_field_names = ['medico', 'especialidade']
+        login_url = LOGIN_REDIRECT_URL
+        raise_exception = True
+        group_required = ['Administrador', 'Médico']
+
+    class CreateView(crud.base.CrudCreateView):
+        form_class = EspecialidadeMedicoForm
+
+        def get_initial(self):
+            try:
+                usuario = Usuario.objects.get(user_id=self.request.user.pk)
+            except ObjectDoesNotExist:
+                pass
+            else:
+                if usuario.tipo.descricao == 'Médico':
+                    self.initial['medico'] = usuario
+
+            return self.initial.copy()
+
+    class UpdateView(crud.base.CrudUpdateView):
+        form_class = EspecialidadeMedicoForm
 
 
 class EspecialidadeCrud(Crud):
@@ -98,7 +130,7 @@ class UsuarioCrud(Crud):
         ordering = ['nome', 'tipo']
         login_url = LOGIN_REDIRECT_URL
         raise_exception = True
-        group_required = ['Administrador']
+        group_required = ['Administrador', 'Médico']
 
     class CreateView(crud.base.CrudCreateView):
         form_class = UsuarioForm
@@ -133,93 +165,23 @@ class UsuarioCrud(Crud):
         def get_context_data(self, **kwargs):
             context = super(DetailView, self).get_context_data(**kwargs)
 
+            # Telefones
             tel1 = context['object'].primeiro_telefone
             tel1 = '[%s] - %s' % (tel1.ddd, tel1.numero)
-
             tel2 = context['object'].segundo_telefone
             if tel2:
                 tel2 = '[%s] - %s' % (tel2.ddd, tel2.numero)
             else:
                 tel2 = '----'
-
             context['telefones'] = [tel1, tel2]
+
+            # Especialidades
+            especialidades = EspecialidadeMedico.objects.filter(
+                medico=self.object)
+            context['especialidades'] = especialidades
+
             return context
 
         @property
         def layout_key(self):
             return 'UsuarioDetail'
-
-
-class EspecialidadeCreateView(GroupRequiredMixin,
-                              LoginRequiredMixin,
-                              CreateView):
-
-    login_url = LOGIN_REDIRECT_URL
-    raise_exception = True
-    group_required = ['Administrador', 'Médico']
-
-    template_name = 'crud/form.html'
-    form_class = EspecialidadeMedicoForm
-
-    def get_success_url(self, usuario):
-        return reverse('usuarios:usuario_detail',
-                       kwargs={'pk': usuario.pk})
-
-    def get_context_data(self, **kwargs):
-        context = super(
-            EspecialidadeCreateView, self).get_context_data(**kwargs)
-        usuario = Usuario.objects.get(pk=self.kwargs['pk'])
-        context['form'].fields['medico'].initial = usuario
-        return context
-
-    def form_valid(self, form):
-        especialidade = form.save()
-        return redirect(self.get_success_url(especialidade.medico))
-
-
-class EspecialidadeListView(GroupRequiredMixin,
-                            LoginRequiredMixin,
-                            ListView):
-
-    login_url = LOGIN_REDIRECT_URL
-    raise_exception = True
-    group_required = ['Administrador', 'Médico', 'Paciente']
-
-    model = EspecialidadeMedico
-    ordening = ['descricao']
-    paginate_by = 10
-
-    def get_queryset(self):
-        return EspecialidadeMedico.objects.filter(medico_id=self.kwargs['pk'])
-
-    def get_context_data(self, **kwargs):
-        context = super(EspecialidadeListView, self).get_context_data(**kwargs)
-        paginator = context['paginator']
-        page_obj = context['page_obj']
-        context['page_range'] = make_pagination(
-            page_obj.number, paginator.num_pages)
-        context['pk'] = self.kwargs['pk']
-        return context
-
-
-class EspecialidadeUpdateView(GroupRequiredMixin,
-                              LoginRequiredMixin,
-                              UpdateView):
-
-    login_url = LOGIN_REDIRECT_URL
-    raise_exception = True
-    group_required = ['Administrador', 'Médico']
-
-    template_name = 'crud/form.html'
-    form_class = EspecialidadeMedicoForm
-
-    def get_success_url(self, usuario):
-        return reverse('usuarios:especialidade_list',
-                       kwargs={'pk': usuario.pk})
-
-    def get_queryset(self):
-        return EspecialidadeMedico.objects.filter(pk=self.kwargs['pk'])
-
-    def form_valid(self, form):
-        especialidade = form.save()
-        return redirect(self.get_success_url(especialidade.medico))

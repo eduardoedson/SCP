@@ -10,9 +10,11 @@ from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
 from crispy_layout_mixin import form_actions, to_row
-from utils import TIPO_TELEFONE, YES_NO_CHOICES, get_or_create_grupo
+from easy_select2 import Select2
+from utils import (TIPO_TELEFONE, YES_NO_CHOICES, get_medicos,
+                   get_or_create_grupo)
 
-from .models import EspecialidadeMedico, Telefone, Usuario
+from .models import EspecialidadeMedico, Telefone, Usuario, Especialidade
 
 
 class MudarSenhaForm(forms.Form):
@@ -303,19 +305,14 @@ class UsuarioEditForm(ModelForm):
 
 class EspecialidadeMedicoForm(ModelForm):
 
+    medico = forms.ModelChoiceField(
+        queryset=get_medicos(),
+        widget=Select2(select2attrs={'width': '535px'}))
+
+    especialidade = forms.ModelChoiceField(
+        queryset=Especialidade.objects.all(),
+        widget=Select2(select2attrs={'width': '535px'}))
+
     class Meta:
         model = EspecialidadeMedico
-        fields = ['descricao', 'medico']
-        widgets = {'medico': forms.HiddenInput()}
-
-    def __init__(self, *args, **kwargs):
-        row1 = to_row([('descricao', 12)])
-
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Fieldset(
-                _('Especialidade'),
-                row1, form_actions(save_label='Salvar')
-            )
-        )
-        super(EspecialidadeMedicoForm, self).__init__(*args, **kwargs)
+        fields = ['especialidade', 'medico']
