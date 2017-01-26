@@ -10,30 +10,39 @@
   <p style="font-size:20px;">Olá, <font color="#5AB9E8"><b>{{nome}}</b></font>. Você está logado como <font color="#5AB9E8"><b>{{tipo}}</b></font> e possui as seguintes opções de menu:</p><br /><br />
 
   {% if tipo == 'Administrador' %}
-    <a href="{% url 'usuarios:tipousuario_list' %}" class="btn btn-info btn-lg">Tipos de Usuário</a></a>
-    <a href="{% url 'usuarios:planosaude_list' %}" class="btn btn-info btn-lg">Planos de Saúde</a></a>
-    <a href="{% url 'usuarios:usuario_list' %}" class="btn btn-info btn-lg">Usuários</a></a>
-    <a href="{% url 'servicos:consulta_list' %}" class="btn btn-info btn-lg">Consultas</a></a>
-    <a href="{% url 'usuarios:especialidade_list' %}" class="btn btn-info btn-lg">Especialidades</a></a>
-    <a href="{% url 'usuarios:especialidademedico_list' %}" class="btn btn-info btn-lg">Especialidade <-> Médico</a></a>
+    <div class="btn-group btn-group-lg">
+      <a href="{% url 'usuarios:tipousuario_list' %}" class="btn btn-info btn-lg">Tipos de Usuário</a>
+      <a href="{% url 'usuarios:planosaude_list' %}" class="btn btn-info btn-lg">Planos de Saúde</a>
+      <a href="{% url 'usuarios:usuario_list' %}" class="btn btn-info btn-lg">Usuários</a>
+      <a href="{% url 'servicos:consulta_list' %}" class="btn btn-info btn-lg">Consultas</a>
+      <a href="{% url 'usuarios:especialidade_list' %}" class="btn btn-info btn-lg">Especialidades</a>
+      <a href="{% url 'usuarios:especialidademedico_list' %}" class="btn btn-info btn-lg">Especialidade <-> Médico</a>
+    </div>
   {% endif %}
 
   {% if tipo == 'Médico' %}
-    <a href="{% url 'servicos:consulta_list' %}" class="btn btn-info btn-lg">Consultas</a></a>
-    <a href="{% url 'servicos:consulta_create' %}" class="btn btn-info btn-lg">Cadastrar Consulta</a></a>
-    <a href="{% url 'usuarios:usuario_detail' user_pk %}" class="btn btn-info btn-lg">Ver Perfil</a></a>
-    <a href="{% url 'usuarios:usuario_update' user_pk %}" class="btn btn-info btn-lg">Editar Perfil</a></a>
+    <div class="btn-group btn-group-lg">
+      <a href="{% url 'servicos:consulta_list' %}" class="btn btn-info btn-lg">Consultas</a></a>
+      <a href="{% url 'servicos:consulta_create' %}" class="btn btn-info btn-lg">Cadastrar Consulta</a></a>
+      <a href="{% url 'usuarios:usuario_detail' user_pk %}" class="btn btn-info btn-lg">Ver Perfil</a></a>
+      <a href="{% url 'usuarios:usuario_update' user_pk %}" class="btn btn-info btn-lg">Editar Perfil</a></a>
+    </div>
   {% endif %}
 
   {% if tipo == 'Paciente' %}
-    <a href="{% url 'servicos:consulta_list' %}" class="btn btn-info btn-lg">Ver Consultas</a></a>
+    <div class="btn-group btn-group-lg">
+      <a href="{% url 'servicos:consulta_list' %}" class="btn btn-info btn-lg">Ver Consultas</a></a>
+    </div>
   {% endif %}
 
   {% if tipo == 'Outro' %}
     <font color="red">Por falta de configuração esse tipo de usuário não possui nenhuma funcionalidade disponível.</font><br />
   {% endif %}
 
-  <a href="{% url 'usuarios:mudar_senha' %}" class="btn btn-warning btn-lg">Mudar Senha</a></a>
-  <a href="{% url 'logout' %}" class="btn btn-danger btn-lg">Sair</a></a>
+  <br /><br />
+  <div class="btn-group" style="float:right;">
+    <a href="{% url 'usuarios:mudar_senha' %}" class="btn btn-warning btn-lg">Mudar Senha</a>
+    <a href="{% url 'logout' %}" class="btn btn-danger btn-lg">Sair</a>
+  </div>
 
 {% endblock %}
