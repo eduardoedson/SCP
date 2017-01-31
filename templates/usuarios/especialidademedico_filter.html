@@ -3,12 +3,22 @@
 {% load crispy_forms_tags %}
 
 {% block base_content %}
-  {% if not filter_url %}
-    {% crispy filter.form %}
-  {% endif %}
-
-  {% if filter_url %}
-    aaaaaaa
-    {% include "paginacao.html" %}
-  {% endif %}
+  {% crispy filter.form %}
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Médico</th>
+        <th>Especialidade</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for f in filter.qs %}
+        <tr>
+          <td><a href="{% url 'usuarios:usuario_detail' f.pk %}">{{f.medico}}</a></td>
+          <td>{{f.especialidade}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% include "paginacao.html" %}
 {% endblock base_content %}

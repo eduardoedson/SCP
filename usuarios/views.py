@@ -12,13 +12,14 @@ from crud.base import Crud
 from scp.settings import LOGIN_REDIRECT_URL
 from utils import make_pagination, valida_igualdade
 
-from .forms import (EspecialidadeMedicoForm, EspecialidadeMedicoFilterSet,
+from .forms import (EspecialidadeMedicoFilterSet, EspecialidadeMedicoForm,
                     MudarSenhaForm, UsuarioEditForm, UsuarioForm)
 from .models import (Especialidade, EspecialidadeMedico, PlanoSaude,
                      TipoUsuario, Usuario)
 
 
 class EspecialidadeMedicoFilterView(FilterView):
+    model = EspecialidadeMedico
     filterset_class = EspecialidadeMedicoFilterSet
     paginate_by = 10
 
@@ -27,15 +28,11 @@ class EspecialidadeMedicoFilterView(FilterView):
                         self).get_context_data(**kwargs)
 
         qr = self.request.GET.copy()
-
         paginator = context['paginator']
         page_obj = context['page_obj']
-
         context['page_range'] = make_pagination(
             page_obj.number, paginator.num_pages)
-
-        context['filter_url'] = ('&' + qr.urlencode()) if len(qr) > 0 else ''
-
+        context['qr'] = qr
         return context
 
 

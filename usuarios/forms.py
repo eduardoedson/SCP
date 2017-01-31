@@ -33,7 +33,7 @@ class EspecialidadeMedicoFilterSet(django_filters.FilterSet):
         self.form.helper.form_method = 'GET'
         self.form.helper.layout = Layout(
             Fieldset(_('Pesquisar Médico'),
-                     row1, form_actions(save_label='Pesquisar'))
+                     row1, form_actions(save_label='Filtrar'))
         )
 
 
