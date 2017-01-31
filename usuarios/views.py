@@ -5,16 +5,38 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django_filters.views import FilterView
 
 import crud.base
 from crud.base import Crud
 from scp.settings import LOGIN_REDIRECT_URL
 from utils import make_pagination, valida_igualdade
 
-from .forms import (EspecialidadeMedicoForm, MudarSenhaForm, UsuarioEditForm,
-                    UsuarioForm)
+from .forms import (EspecialidadeMedicoForm, EspecialidadeMedicoFilterSet,
+                    MudarSenhaForm, UsuarioEditForm, UsuarioForm)
 from .models import (Especialidade, EspecialidadeMedico, PlanoSaude,
                      TipoUsuario, Usuario)
+
+
+class EspecialidadeMedicoFilterView(FilterView):
+    filterset_class = EspecialidadeMedicoFilterSet
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super(EspecialidadeMedicoFilterView,
+                        self).get_context_data(**kwargs)
+
+        qr = self.request.GET.copy()
+
+        paginator = context['paginator']
+        page_obj = context['page_obj']
+
+        context['page_range'] = make_pagination(
+            page_obj.number, paginator.num_pages)
+
+        context['filter_url'] = ('&' + qr.urlencode()) if len(qr) > 0 else ''
+
+        return context
 
 
 def mudar_senha(request):

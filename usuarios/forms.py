@@ -1,3 +1,4 @@
+import django_filters
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Fieldset, Layout
 from django import forms
@@ -14,7 +15,26 @@ from easy_select2 import Select2
 from utils import (TIPO_TELEFONE, YES_NO_CHOICES, get_medicos,
                    get_or_create_grupo)
 
-from .models import EspecialidadeMedico, Telefone, Usuario, Especialidade
+from .models import Especialidade, EspecialidadeMedico, Telefone, Usuario
+
+
+class EspecialidadeMedicoFilterSet(django_filters.FilterSet):
+
+    class Meta:
+        model = EspecialidadeMedico
+        fields = ['especialidade']
+
+    def __init__(self, *args, **kwargs):
+        super(EspecialidadeMedicoFilterSet, self).__init__(*args, **kwargs)
+
+        row1 = to_row([('especialidade', 12)])
+
+        self.form.helper = FormHelper()
+        self.form.helper.form_method = 'GET'
+        self.form.helper.layout = Layout(
+            Fieldset(_('Pesquisar Médico'),
+                     row1, form_actions(save_label='Pesquisar'))
+        )
 
 
 class MudarSenhaForm(forms.Form):
