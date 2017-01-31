@@ -16,8 +16,12 @@
       <a href="{% url 'usuarios:usuario_list' %}" class="btn btn-info btn-lg">Usuários</a>
       <a href="{% url 'servicos:consulta_list' %}" class="btn btn-info btn-lg">Consultas</a>
       <a href="{% url 'usuarios:especialidade_list' %}" class="btn btn-info btn-lg">Especialidades</a>
-      <a href="{% url 'usuarios:especialidademedico_list' %}" class="btn btn-info btn-lg">Especialidade <-> Médico</a>
     </div>
+    <div class="btn-group btn-group-lg">
+      <a href="{% url 'usuarios:especialidademedico_list' %}" class="btn btn-info btn-lg">Especialidade <-> Médico</a>
+      <a href="{% url 'usuarios:pesquisar_medico' %}" class="btn btn-info btn-lg">Pesquisar Médico</a>
+    </div>
+
   {% endif %}
 
   {% if tipo == 'Médico' %}
@@ -26,12 +30,14 @@
       <a href="{% url 'servicos:consulta_create' %}" class="btn btn-info btn-lg">Cadastrar Consulta</a></a>
       <a href="{% url 'usuarios:usuario_detail' user_pk %}" class="btn btn-info btn-lg">Ver Perfil</a></a>
       <a href="{% url 'usuarios:usuario_update' user_pk %}" class="btn btn-info btn-lg">Editar Perfil</a></a>
+      <a href="{% url 'usuarios:pesquisar_medico' %}" class="btn btn-info btn-lg">Pesquisar Médico</a>
     </div>
   {% endif %}
 
   {% if tipo == 'Paciente' %}
     <div class="btn-group btn-group-lg">
       <a href="{% url 'servicos:consulta_list' %}" class="btn btn-info btn-lg">Ver Consultas</a></a>
+      <a href="{% url 'usuarios:pesquisar_medico' %}" class="btn btn-info btn-lg">Pesquisar Médico</a>
     </div>
   {% endif %}
 

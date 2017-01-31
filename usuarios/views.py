@@ -18,7 +18,13 @@ from .models import (Especialidade, EspecialidadeMedico, PlanoSaude,
                      TipoUsuario, Usuario)
 
 
-class EspecialidadeMedicoFilterView(FilterView):
+class EspecialidadeMedicoFilterView(GroupRequiredMixin,
+                                    LoginRequiredMixin, FilterView):
+
+    login_url = LOGIN_REDIRECT_URL
+    raise_exception = True
+    group_required = ['Paciente', 'Administrador', 'Médico']
+
     model = EspecialidadeMedico
     filterset_class = EspecialidadeMedicoFilterSet
     paginate_by = 10
