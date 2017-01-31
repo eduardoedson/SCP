@@ -147,15 +147,12 @@ class UsuarioCrud(Crud):
     model = Usuario
     help_path = ''
 
-    class BaseMixin(GroupRequiredMixin,
-                    LoginRequiredMixin,
-                    crud.base.CrudBaseMixin):
+    class BaseMixin(LoginRequiredMixin, crud.base.CrudBaseMixin):
 
         list_field_names = ['nome', 'tipo',  'data_nascimento']
         ordering = ['nome', 'tipo']
         login_url = LOGIN_REDIRECT_URL
         raise_exception = True
-        group_required = ['Administrador', 'Médico']
 
     class CreateView(crud.base.CrudCreateView):
         form_class = UsuarioForm

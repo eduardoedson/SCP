@@ -14,7 +14,7 @@
     <tbody>
       {% for f in filter.qs %}
         <tr>
-          <td><a href="{% url 'usuarios:usuario_detail' f.pk %}">{{f.medico}}</a></td>
+          <td><a href="{% url 'usuarios:usuario_detail' f.medico.pk %}">{{f.medico}}</a></td>
           <td>{{f.especialidade}}</td>
         </tr>
       {% endfor %}
