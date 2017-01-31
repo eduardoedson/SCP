@@ -9,9 +9,9 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
+from easy_select2 import Select2
 
 from crispy_layout_mixin import form_actions, to_row
-from easy_select2 import Select2
 from utils import (TIPO_TELEFONE, YES_NO_CHOICES, get_medicos,
                    get_or_create_grupo)
 

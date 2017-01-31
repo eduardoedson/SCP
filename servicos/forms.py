@@ -2,8 +2,8 @@ from datetime import datetime
 
 from django import forms
 from django.forms import ModelForm
-
 from easy_select2 import Select2
+
 from utils import get_medicos, get_pacientes
 
 from .models import Consulta
