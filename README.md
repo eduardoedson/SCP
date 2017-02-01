@@ -41,7 +41,7 @@ Criar banco:<br />
 
 * De volta ao terminal dentro da virtualenv rode:<br />
   ``./manage.py migrate``<br />
-  ``./manage.py loaddata criar_tipos.yaml``<br />
+  ``./manage.py loaddata criar_padroes.yaml``<br />
 
 Rodando projeto:<br />
 ---------------------------------------
