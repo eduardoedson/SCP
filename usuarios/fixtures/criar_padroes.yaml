@@ -1,0 +1,39 @@
+- model: usuarios.TipoUsuario
+  pk: 1
+  fields:
+    descricao: Médico
+
+- model: usuarios.TipoUsuario
+  pk: 2
+  fields:
+    descricao: Paciente
+
+- model: usuarios.TipoUsuario
+  pk: 3
+  fields:
+    descricao: Administrador
+
+- model: usuarios.PlanoSaude
+  pk: 1
+  fields:
+    descricao: Particular
+
+- model: servicos.StatusChamado
+  pk: 1
+  fields:
+    descricao: Aberto
+
+- model: servicos.StatusChamado
+  pk: 2
+  fields:
+    descricao: Fechado
+
+- model: servicos.StatusChamado
+  pk: 3
+  fields:
+    descricao: Respondido
+
+- model: servicos.StatusChamado
+  pk: 4
+  fields:
+    descricao: Em análise
