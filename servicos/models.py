@@ -39,7 +39,7 @@ class StatusChamado(models.Model):
 
 class Chamado(models.Model):
     titulo = models.CharField(max_length=30, verbose_name=('Título'))
-    descricao = models.CharField(max_length=30, verbose_name=('Descrição'))
+    descricao = models.TextField(verbose_name=('Descrição'))
     status = models.ForeignKey(StatusChamado, verbose_name=_('Status'))
 
     class Meta:

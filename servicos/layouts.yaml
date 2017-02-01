@@ -3,3 +3,12 @@ Consulta:
   - medico paciente
   - data hora
   - descricao
+
+StatusChamado:
+  Status:
+  - descricao
+
+Chamado:
+  Chamado:
+  - titulo status
+  - descricao

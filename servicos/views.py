@@ -1,12 +1,39 @@
+from braces.views import GroupRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 import crud.base
 from crud.base import Crud
+from scp.settings import LOGIN_REDIRECT_URL
 from usuarios.models import Usuario
 
 from .forms import ConsultaForm
-from .models import Consulta
+from .models import Chamado, Consulta, StatusChamado
+
+
+class StatusChamadoCrud(Crud):
+    model = StatusChamado
+    help_path = ''
+
+    class BaseMixin(GroupRequiredMixin,
+                    LoginRequiredMixin, crud.base.CrudBaseMixin):
+        raise_exception = True
+        login_url = LOGIN_REDIRECT_URL
+        group_required = ['Administrador']
+
+
+class ChamadoCrud(Crud):
+    model = Chamado
+    help_path = ''
+
+    class BaseMixin(GroupRequiredMixin,
+                    LoginRequiredMixin, crud.base.CrudBaseMixin):
+        list_field_names = ['titulo', 'status']
+
+        raise_exception = True
+        login_url = LOGIN_REDIRECT_URL
+        group_required = ['Administrador', 'Médico']
 
 
 class ConsultaCrud(Crud):
