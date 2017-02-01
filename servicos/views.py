@@ -1,11 +1,8 @@
-from braces.views import GroupRequiredMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 import crud.base
 from crud.base import Crud
-from scp.settings import LOGIN_REDIRECT_URL
 from usuarios.models import Usuario
 
 from .forms import ConsultaForm
@@ -16,14 +13,9 @@ class ConsultaCrud(Crud):
     model = Consulta
     help_path = ''
 
-    class BaseMixin(GroupRequiredMixin,
-                    LoginRequiredMixin,
-                    crud.base.CrudBaseMixin):
+    class BaseMixin(crud.base.CrudBaseMixin):
 
         list_field_names = ['medico', 'paciente', 'data']
-        login_url = LOGIN_REDIRECT_URL
-        raise_exception = True
-        group_required = ['Administrador', 'Médico', 'Paciente']
 
     class CreateView(crud.base.CrudCreateView):
         form_class = ConsultaForm

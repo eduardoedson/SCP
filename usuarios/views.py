@@ -1,5 +1,3 @@
-from braces.views import GroupRequiredMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
@@ -8,7 +6,6 @@ from django_filters.views import FilterView
 
 import crud.base
 from crud.base import Crud
-from scp.settings import LOGIN_REDIRECT_URL
 from utils import make_pagination, valida_igualdade
 
 from .forms import (EspecialidadeMedicoFilterSet, EspecialidadeMedicoForm,
@@ -17,13 +14,7 @@ from .models import (Especialidade, EspecialidadeMedico, PlanoSaude,
                      TipoUsuario, Usuario)
 
 
-class EspecialidadeMedicoFilterView(GroupRequiredMixin,
-                                    LoginRequiredMixin, FilterView):
-
-    login_url = LOGIN_REDIRECT_URL
-    raise_exception = True
-    group_required = ['Paciente', 'Administrador', 'Médico']
-
+class EspecialidadeMedicoFilterView(FilterView):
     model = EspecialidadeMedico
     filterset_class = EspecialidadeMedicoFilterSet
     paginate_by = 10
@@ -73,14 +64,8 @@ class EspecialidadeMedicoCrud(Crud):
     model = EspecialidadeMedico
     help_path = ''
 
-    class BaseMixin(GroupRequiredMixin,
-                    LoginRequiredMixin,
-                    crud.base.CrudBaseMixin):
-
+    class BaseMixin(crud.base.CrudBaseMixin):
         list_field_names = ['medico', 'especialidade']
-        login_url = LOGIN_REDIRECT_URL
-        raise_exception = True
-        group_required = ['Administrador', 'Médico']
 
     class CreateView(crud.base.CrudCreateView):
         form_class = EspecialidadeMedicoForm
@@ -104,54 +89,33 @@ class EspecialidadeCrud(Crud):
     model = Especialidade
     help_path = ''
 
-    class BaseMixin(GroupRequiredMixin,
-                    LoginRequiredMixin,
-                    crud.base.CrudBaseMixin):
-
+    class BaseMixin(crud.base.CrudBaseMixin):
         list_field_names = ['descricao']
-        login_url = LOGIN_REDIRECT_URL
-        raise_exception = True
-        group_required = 'Administrador'
 
 
 class PlanoSaudeCrud(Crud):
     model = PlanoSaude
     help_path = ''
 
-    class BaseMixin(GroupRequiredMixin,
-                    LoginRequiredMixin,
-                    crud.base.CrudBaseMixin):
-
+    class BaseMixin(crud.base.CrudBaseMixin):
         list_field_names = ['descricao']
-        login_url = LOGIN_REDIRECT_URL
-        raise_exception = True
-        group_required = 'Administrador'
 
 
 class TipoUsuarioCrud(Crud):
     model = TipoUsuario
     help_path = ''
 
-    class BaseMixin(GroupRequiredMixin,
-                    LoginRequiredMixin,
-                    crud.base.CrudBaseMixin):
-
+    class BaseMixin(crud.base.CrudBaseMixin):
         list_field_names = ['descricao']
-        login_url = LOGIN_REDIRECT_URL
-        raise_exception = True
-        group_required = 'Administrador'
 
 
 class UsuarioCrud(Crud):
     model = Usuario
     help_path = ''
 
-    class BaseMixin(LoginRequiredMixin, crud.base.CrudBaseMixin):
-
+    class BaseMixin(crud.base.CrudBaseMixin):
         list_field_names = ['nome', 'tipo',  'data_nascimento']
         ordering = ['nome', 'tipo']
-        login_url = LOGIN_REDIRECT_URL
-        raise_exception = True
 
     class CreateView(crud.base.CrudCreateView):
         form_class = UsuarioForm

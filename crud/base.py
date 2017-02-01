@@ -185,7 +185,7 @@ class CrudDeleteView(GroupRequiredMixin,
 
     raise_exception = True
     login_url = LOGIN_REDIRECT_URL
-    group_required = ['Administrador', 'Médico']
+    group_required = ['Administrador']
 
     @classmethod
     def get_url_regex(cls):
