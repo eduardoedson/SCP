@@ -1,3 +1,5 @@
+from braces.views import GroupRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
@@ -6,6 +8,7 @@ from django_filters.views import FilterView
 
 import crud.base
 from crud.base import Crud
+from scp.settings import LOGIN_REDIRECT_URL
 from utils import make_pagination, valida_igualdade
 
 from .forms import (EspecialidadeMedicoFilterSet, EspecialidadeMedicoForm,
@@ -14,10 +17,54 @@ from .models import (Especialidade, EspecialidadeMedico, PlanoSaude,
                      TipoUsuario, Usuario)
 
 
-class EspecialidadeMedicoFilterView(FilterView):
+class EspecialidadeCrud(Crud):
+    model = Especialidade
+    help_path = ''
+
+    class BaseMixin(GroupRequiredMixin,
+                    LoginRequiredMixin, crud.base.CrudBaseMixin):
+        list_field_names = ['descricao']
+
+        raise_exception = True
+        login_url = LOGIN_REDIRECT_URL
+        group_required = ['Administrador']
+
+
+class PlanoSaudeCrud(Crud):
+    model = PlanoSaude
+    help_path = ''
+
+    class BaseMixin(GroupRequiredMixin,
+                    LoginRequiredMixin, crud.base.CrudBaseMixin):
+        list_field_names = ['descricao']
+
+        raise_exception = True
+        login_url = LOGIN_REDIRECT_URL
+        group_required = ['Administrador']
+
+
+class TipoUsuarioCrud(Crud):
+    model = TipoUsuario
+    help_path = ''
+
+    class BaseMixin(GroupRequiredMixin,
+                    LoginRequiredMixin, crud.base.CrudBaseMixin):
+        list_field_names = ['descricao']
+
+        raise_exception = True
+        login_url = LOGIN_REDIRECT_URL
+        group_required = ['Administrador']
+
+
+class EspecialidadeMedicoFilterView(GroupRequiredMixin,
+                                    LoginRequiredMixin, FilterView):
     model = EspecialidadeMedico
     filterset_class = EspecialidadeMedicoFilterSet
     paginate_by = 10
+
+    raise_exception = True
+    login_url = LOGIN_REDIRECT_URL
+    group_required = ['Administrador', 'Médico', 'Paciente']
 
     def get_context_data(self, **kwargs):
         context = super(EspecialidadeMedicoFilterView,
@@ -83,30 +130,6 @@ class EspecialidadeMedicoCrud(Crud):
 
     class UpdateView(crud.base.CrudUpdateView):
         form_class = EspecialidadeMedicoForm
-
-
-class EspecialidadeCrud(Crud):
-    model = Especialidade
-    help_path = ''
-
-    class BaseMixin(crud.base.CrudBaseMixin):
-        list_field_names = ['descricao']
-
-
-class PlanoSaudeCrud(Crud):
-    model = PlanoSaude
-    help_path = ''
-
-    class BaseMixin(crud.base.CrudBaseMixin):
-        list_field_names = ['descricao']
-
-
-class TipoUsuarioCrud(Crud):
-    model = TipoUsuario
-    help_path = ''
-
-    class BaseMixin(crud.base.CrudBaseMixin):
-        list_field_names = ['descricao']
 
 
 class UsuarioCrud(Crud):
