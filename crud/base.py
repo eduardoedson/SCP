@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from braces.views import FormMessagesMixin
+from braces.views import FormMessagesMixin, GroupRequiredMixin
 from django.conf.urls import url
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.utils.decorators import classonlymethod
 from django.utils.translation import ugettext_lazy as _
@@ -8,6 +9,7 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   UpdateView)
 
 from crispy_layout_mixin import CrispyLayoutFormMixin, get_field_display
+from scp.settings import LOGIN_REDIRECT_URL
 from utils import make_pagination
 
 LIST, CREATE, DETAIL, UPDATE, DELETE = \
@@ -73,7 +75,11 @@ class CrudBaseMixin(CrispyLayoutFormMixin):
         return self.model._meta.verbose_name_plural
 
 
-class CrudListView(ListView):
+class CrudListView(GroupRequiredMixin, LoginRequiredMixin, ListView):
+
+    raise_exception = True
+    login_url = LOGIN_REDIRECT_URL
+    group_required = ['Administrador', 'Médico', 'Paciente']
 
     @classmethod
     def get_url_regex(cls):
@@ -116,7 +122,12 @@ class CrudListView(ListView):
         return context
 
 
-class CrudCreateView(FormMessagesMixin, CreateView):
+class CrudCreateView(GroupRequiredMixin,
+                     LoginRequiredMixin, FormMessagesMixin, CreateView):
+
+    raise_exception = True
+    login_url = LOGIN_REDIRECT_URL
+    group_required = ['Administrador', 'Médico']
 
     @classmethod
     def get_url_regex(cls):
@@ -137,14 +148,23 @@ class CrudCreateView(FormMessagesMixin, CreateView):
         return super(CrudCreateView, self).get_context_data(**kwargs)
 
 
-class CrudDetailView(DetailView):
+class CrudDetailView(GroupRequiredMixin, LoginRequiredMixin, DetailView):
+
+    raise_exception = True
+    login_url = LOGIN_REDIRECT_URL
+    group_required = ['Administrador', 'Médico', 'Paciente']
 
     @classmethod
     def get_url_regex(cls):
         return r'^(?P<pk>\d+)$'
 
 
-class CrudUpdateView(FormMessagesMixin, UpdateView):
+class CrudUpdateView(GroupRequiredMixin,
+                     LoginRequiredMixin, FormMessagesMixin, UpdateView):
+
+    raise_exception = True
+    login_url = LOGIN_REDIRECT_URL
+    group_required = ['Administrador', 'Médico']
 
     @classmethod
     def get_url_regex(cls):
@@ -160,7 +180,12 @@ class CrudUpdateView(FormMessagesMixin, UpdateView):
         return self.detail_url
 
 
-class CrudDeleteView(FormMessagesMixin, DeleteView):
+class CrudDeleteView(GroupRequiredMixin,
+                     LoginRequiredMixin, FormMessagesMixin, DeleteView):
+
+    raise_exception = True
+    login_url = LOGIN_REDIRECT_URL
+    group_required = ['Administrador', 'Médico']
 
     @classmethod
     def get_url_regex(cls):

@@ -20,7 +20,7 @@ class ConsultaCrud(Crud):
                     LoginRequiredMixin,
                     crud.base.CrudBaseMixin):
 
-        list_field_names = ['medico', 'paciente']
+        list_field_names = ['medico', 'paciente', 'data']
         login_url = LOGIN_REDIRECT_URL
         raise_exception = True
         group_required = ['Administrador', 'Médico', 'Paciente']
