@@ -41,6 +41,7 @@ class Chamado(models.Model):
     titulo = models.CharField(max_length=30, verbose_name=('Título'))
     descricao = models.TextField(verbose_name=('Descrição'))
     status = models.ForeignKey(StatusChamado, verbose_name=_('Status'))
+    autor = models.ForeignKey(Usuario, verbose_name=_('Autor'), blank=True)
 
     class Meta:
         verbose_name = _('Tipo de Usuário')

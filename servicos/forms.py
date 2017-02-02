@@ -2,11 +2,11 @@ from datetime import datetime
 
 from django import forms
 from django.forms import ModelForm
-from easy_select2 import Select2
 
+from easy_select2 import Select2
 from utils import get_medicos, get_pacientes
 
-from .models import Consulta
+from .models import Chamado, Consulta
 
 
 class ConsultaForm(ModelForm):
@@ -26,3 +26,11 @@ class ConsultaForm(ModelForm):
         super(ConsultaForm, self).__init__(*args, **kwargs)
         self.fields['data'].initial = datetime.now()
         self.fields['hora'].initial = datetime.now().strftime("%H:%M")
+
+
+class ChamadoForm(ModelForm):
+
+    class Meta:
+        model = Chamado
+        fields = '__all__'
+        widgets = {'autor': forms.HiddenInput()}

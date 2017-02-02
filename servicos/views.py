@@ -8,7 +8,7 @@ from crud.base import Crud
 from scp.settings import LOGIN_REDIRECT_URL
 from usuarios.models import Usuario
 
-from .forms import ConsultaForm
+from .forms import ChamadoForm, ConsultaForm
 from .models import Chamado, Consulta, StatusChamado
 
 
@@ -34,6 +34,42 @@ class ChamadoCrud(Crud):
         raise_exception = True
         login_url = LOGIN_REDIRECT_URL
         group_required = ['Administrador', 'Médico']
+
+    class CreateView(crud.base.CrudCreateView):
+        form_class = ChamadoForm
+
+        def get_initial(self):
+            status = StatusChamado.objects.get(descricao='Aberto')
+            self.initial['status'] = status
+
+            user = User.objects.get(id=self.request.user.id)
+            try:
+                usuario = Usuario.objects.get(user_id=user.id)
+            except ObjectDoesNotExist:
+                pass
+            else:
+                tipo = usuario.tipo
+
+                if tipo.descricao == 'Médico':
+                    self.initial['autor'] = usuario
+
+            return self.initial.copy()
+
+    class UpdateView(crud.base.CrudUpdateView):
+        form_class = ChamadoForm
+
+    class ListView(crud.base.CrudListView):
+        def get_queryset(self):
+            qs = super().get_queryset()
+            try:
+                usuario = Usuario.objects.get(user_id=self.request.user.id)
+            except ObjectDoesNotExist:
+                return qs
+            else:
+                if usuario.tipo.descricao == 'Médico':
+                    return qs.filter(autor=usuario)
+                else:
+                    return qs
 
 
 class ConsultaCrud(Crud):
