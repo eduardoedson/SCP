@@ -36,7 +36,7 @@ class ConsultaFilterSet(FilterSet):
         self.form.helper = FormHelper()
         self.form.helper.form_method = 'GET'
         self.form.helper.layout = Layout(
-            Fieldset(_('Pesquisar Médico'),
+            Fieldset(_('Pesquisar Consulta'),
                      row1, form_actions(save_label='Filtrar'))
         )
 
