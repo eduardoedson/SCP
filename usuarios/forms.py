@@ -1,4 +1,3 @@
-import django_filters
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Fieldset, Layout
 from django import forms
@@ -9,16 +8,17 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
-from easy_select2 import Select2
+from django_filters import FilterSet
 
 from crispy_layout_mixin import form_actions, to_row
+from easy_select2 import Select2
 from utils import (TIPO_TELEFONE, YES_NO_CHOICES, get_medicos,
                    get_or_create_grupo)
 
 from .models import Especialidade, EspecialidadeMedico, Telefone, Usuario
 
 
-class EspecialidadeMedicoFilterSet(django_filters.FilterSet):
+class EspecialidadeMedicoFilterSet(FilterSet):
 
     class Meta:
         model = EspecialidadeMedico

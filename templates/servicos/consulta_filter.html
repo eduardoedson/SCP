@@ -1,0 +1,26 @@
+{% extends "crud/form.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block base_content %}
+  {% crispy filter.form %}
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Médico</th>
+        <th>Paciente</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for f in filter.qs %}
+        <tr>
+          <td><a href="{% url 'usuarios:usuario_detail' f.medico.pk %}">{{f.medico}}</a></td>
+          <td><a href="{% url 'usuarios:usuario_detail' f.paciente.pk %}">{{f.paciente}}</a></td>
+          <td>{{f.data}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% include "paginacao.html" %}
+{% endblock base_content %}

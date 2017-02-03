@@ -2,14 +2,39 @@ from braces.views import GroupRequiredMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django_filters.views import FilterView
 
 import crud.base
 from crud.base import Crud
 from scp.settings import LOGIN_REDIRECT_URL
 from usuarios.models import Usuario
+from utils import make_pagination
 
-from .forms import ChamadoForm, ConsultaForm
+from .forms import ChamadoForm, ConsultaFilterSet, ConsultaForm
 from .models import Chamado, Consulta, StatusChamado
+
+
+class ConsultaFilterView(GroupRequiredMixin,
+                         LoginRequiredMixin, FilterView):
+    model = Consulta
+    filterset_class = ConsultaFilterSet
+    paginate_by = 10
+
+    raise_exception = True
+    login_url = LOGIN_REDIRECT_URL
+    group_required = ['Administrador', 'Médico', 'Paciente']
+
+    def get_context_data(self, **kwargs):
+        context = super(ConsultaFilterView,
+                        self).get_context_data(**kwargs)
+
+        qr = self.request.GET.copy()
+        paginator = context['paginator']
+        page_obj = context['page_obj']
+        context['page_range'] = make_pagination(
+            page_obj.number, paginator.num_pages)
+        context['qr'] = qr
+        return context
 
 
 class StatusChamadoCrud(Crud):

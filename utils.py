@@ -1,5 +1,6 @@
 from datetime import date
 
+from django import forms
 from django.contrib.auth.models import Group
 from django.utils.translation import ugettext_lazy as _
 
@@ -70,3 +71,25 @@ def valida_igualdade(texto1, texto2):
     if texto1 != texto2:
         return False
     return True
+
+
+class RangeWidgetOverride(forms.MultiWidget):
+
+    def __init__(self, attrs=None):
+        widgets = (forms.DateInput(format='%d/%m/%Y',
+                                   attrs={'class': 'dateinput',
+                                          'placeholder': 'Inicial'}),
+                   forms.DateInput(format='%d/%m/%Y',
+                                   attrs={'class': 'dateinput',
+                                          'placeholder': 'Final'}))
+        super(RangeWidgetOverride, self).__init__(widgets, attrs)
+
+    def decompress(self, value):
+        if value:
+            return [value.start, value.stop]
+        return [None, None]
+
+    def format_output(self, rendered_widgets):
+        html = '<div class="col-sm-6">%s</div><div class="col-sm-6">%s</div>'\
+            % tuple(rendered_widgets)
+        return '<div class="row">%s</div>' % html
