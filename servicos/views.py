@@ -2,6 +2,7 @@ from braces.views import GroupRequiredMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic.base import TemplateView
 from django_filters.views import FilterView
 
 import crud.base
@@ -12,6 +13,20 @@ from utils import make_pagination
 
 from .forms import ChamadoForm, ConsultaFilterSet, ConsultaForm
 from .models import Chamado, Consulta, StatusChamado
+
+
+class ConsultaPrintView(GroupRequiredMixin,
+                        LoginRequiredMixin, TemplateView):
+
+    template_name = 'servicos/consulta_print.html'
+    raise_exception = True
+    login_url = LOGIN_REDIRECT_URL
+    group_required = ['Administrador', 'Médico', 'Paciente']
+
+    def get_context_data(self, **kwargs):
+        context = super(ConsultaPrintView, self).get_context_data(**kwargs)
+        context['consulta'] = Consulta.objects.get(pk=self.kwargs['pk'])
+        return context
 
 
 class ConsultaFilterView(GroupRequiredMixin,
