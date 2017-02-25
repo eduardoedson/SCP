@@ -3,10 +3,19 @@ from django.utils.translation import ugettext_lazy as _
 
 from usuarios.models import Usuario
 
+class medicamento(models.Model):
+
 
 class cid(models.Model):
     cid_id = models.CharField(max_length=10, verbose_name=_('Cid ID'), unique=True)
     descricao = models.TextField(verbose_name=_('Descrição'))
+
+    class Meta:
+        verbose_name = _('Cid')
+        verbose_name_plural = _('Cids')
+
+    def __str__(self):
+        return '%s - %s', (self.cid_id, self.descricao)
 
 class Consulta(models.Model):
     medico = models.ForeignKey(
