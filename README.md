@@ -2,10 +2,13 @@
 SCP - Sistema de Controle de Pacientes
 **************************************
 
-Instalação de dependências para uso do postgresql como database<br />
+Instalação de dependências<br />
 ---------------------------------------------------------------
-  ``sudo apt-get install python-pip python-dev python3-dev libpq-dev postgresql postgresql-contrib``<br />
-
+  ``sudo apt-get install python-pip python-dev python3-dev libpq-dev postgresql postgresql-contrib npm curl``<br />
+  ``sudo curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -``<br />
+  ``sudo apt-get install -y nodejs``<br />
+  ``sudo apt-get install -y build-essential``<br />
+  ``sudo npm install bower``<br />
 
 Instalação da virtualenv<br />
 ------------------------
