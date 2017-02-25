@@ -4,13 +4,13 @@ SCP - Sistema de Controle de Pacientes
 
 Instalação de dependências para uso do postgresql como database<br />
 ---------------------------------------------------------------
-  ``sudo apt-get install python-pip python-dev libpq-dev postgresql postgresql-contrib``<br />
+  ``sudo apt-get install python-pip python-dev python3-dev libpq-dev postgresql postgresql-contrib``<br />
 
 
 Instalação da virtualenv<br />
 ------------------------
-  ``$ sudo pip install virtualenvwrapper``<br />
-  ``$ sudo vim .bashrc``<br />
+  ``sudo pip install virtualenvwrapper``<br />
+  ``sudo vim .bashrc``<br />
 * No final do arquivo adicionar:<br />
   ``export WORKON_HOME=$HOME/.virtualenvs``<br />
   ``source /usr/local/bin/virtualenvwrapper.sh``<br />
