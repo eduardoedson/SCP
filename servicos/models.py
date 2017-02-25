@@ -4,6 +4,10 @@ from django.utils.translation import ugettext_lazy as _
 from usuarios.models import Usuario
 
 
+class cid(models.Model):
+    cid_id = models.CharField(max_length=10, verbose_name=_('Cid ID'))
+    descricao = models.CharField(max_length=70, verbose_name=_('Descrição'))
+
 class Consulta(models.Model):
     medico = models.ForeignKey(
         Usuario, verbose_name=_('Médico'), related_name='medico')

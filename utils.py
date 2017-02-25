@@ -1,4 +1,5 @@
 from datetime import date
+from django.core.exceptions import ObjectDoesNotExist
 
 from django import forms
 from django.contrib.auth.models import Group
@@ -53,13 +54,20 @@ def make_pagination(index, num_pages):
 
 
 def get_medicos():
-    tipo = usuarios.models.TipoUsuario.objects.get(descricao='Médico')
-    return usuarios.models.Usuario.objects.filter(tipo=tipo)
-
+    try:
+        tipo = usuarios.models.TipoUsuario.objects.get(descricao='Médico')
+    except :
+        return []
+    else:
+        return usuarios.models.Usuario.objects.filter(tipo=tipo)
 
 def get_pacientes():
-    tipo = usuarios.models.TipoUsuario.objects.get(descricao='Paciente')
-    return usuarios.models.Usuario.objects.filter(tipo=tipo)
+    try:
+        tipo = usuarios.models.TipoUsuario.objects.get(descricao='Paciente')
+    except :
+        return []
+    else:
+        return usuarios.models.Usuario.objects.filter(tipo=tipo)
 
 
 def get_or_create_grupo(nome):
