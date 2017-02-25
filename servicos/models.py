@@ -4,7 +4,23 @@ from django.utils.translation import ugettext_lazy as _
 from usuarios.models import Usuario
 
 class medicamento(models.Model):
-
+    principio_ativo = models.CharField(max_length=50, verbose_name=_('Principio Ativo'))
+    cnpj = models.CharField(max_length=18 , verbose_name=_('CNPJ'))
+    laboratorio = models.CharField(max_length=100, verbose_name=_('Laboratório'))
+    codggrem = models.CharField(max_length=18 , verbose_name=_('codggrem'))
+    ean = models.CharField(max_length=18 , verbose_name=_('ean'))
+    nome = models.CharField(max_length=50 , verbose_name=_('Nome'))
+    apresentacao = models.CharField(max_length=50 , verbose_name=_('Apresentação'))
+    preco_fabricacao = models.CharField(max_length=10 , verbose_name=_('Preço Fabricação'))
+    preco_comercial = models.CharField(max_length=10 , verbose_name=_('Preço Comercial'))
+    restricao_hospitalar = models.CharField(max_length=10 , verbose_name=_('Restrição Hospitalar'))
+    
+    class Meta:
+        verbose_name = _('Medicamento')
+        verbose_name_plural = _('Medicamentos')
+        
+    def __str__(self):
+        return self.nome
 
 class cid(models.Model):
     cid_id = models.CharField(max_length=10, verbose_name=_('Cid ID'), unique=True)
