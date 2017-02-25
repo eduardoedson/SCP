@@ -8,8 +8,8 @@ conn = psycopg2.connect("dbname='scp'\
 						 host='localhost'\
 						 password=''")
 c = conn.cursor()
-c.execute("
-	INSERT INTO `servicos_cid` (`cid_id`, `descricao`) VALUES
+query = """
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('A00.0', 'Cólera devida a Vibrio  01, biótipo '),
 	('A00.1', 'Cólera devida a Vibrio  01, biótipo El Tor'),
 	('A00.9', 'Cólera não especificada'),
@@ -1003,7 +1003,7 @@ c.execute("
 	('C48.1', 'Partes especificadas do peritônio'),
 	('C48.2', 'Peritônio'),
 	('C48.8', 'Lesão invasiva dos tecidos moles do retroperitônio e do peritônio');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('C49.0', 'Tecido conjuntivo e tecidos moles da cabeça, face e pescoço'),
 	('C49.1', 'Tecido conjuntivo e tecidos moles dos membros superiores, incluindo ombro'),
 	('C49.2', 'Tecido conjuntivo e tecidos moles dos membros inferiores, incluindo quadril'),
@@ -1988,7 +1988,7 @@ c.execute("
 	('E78.5', 'Hiperlipidemia não especificada'),
 	('E78.6', 'Deficiências de lipoproteínas'),
 	('E78.8', 'Outros distúrbios do metabolismo de lipoproteínas');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('E78.9', 'Distúrbio não especificado do metabolismo de lipoproteínas'),
 	('E79.0', 'Hiperuricemia sem sinais de artrite inflamatória e de doença com tofos'),
 	('E79.1', 'Síndrome de Lesch-Nyhan'),
@@ -2705,7 +2705,7 @@ c.execute("
 	('G72.3', 'Paralisia periódica'),
 	('G72.4', 'Miopatia inflamatória não classificada em outra parte'),
 	('G72.8', 'Outras miopatias especificadas');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('G72.9', 'Miopatia não especificada'),
 	('G73.0', 'Síndromes miastênicas em doenças endócrinas'),
 	('G73.1', 'Síndrome de Eaton-Lambert (C80+)'),
@@ -3593,7 +3593,7 @@ c.execute("
 	('J17.0', 'Pneumonia em doenças bacterianas classificadas em outra parte'),
 	('J17.1', 'Pneumonia em doenças virais classificadas em outra parte'),
 	('J17.2', 'Pneumonia em micoses classificadas em outra parte');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('J17.3', 'Pneumonia em doenças parasitárias classificadas em outra parte'),
 	('J17.8', 'Pneumonia em outras doenças classificadas em outra parte'),
 	('J18.0', 'Broncopneumonia não especificada'),
@@ -4544,7 +4544,7 @@ c.execute("
 	('M02.2', 'Artropatia pós-imunização'),
 	('M02.3', 'Doença de Reiter'),
 	('M02.8', 'Outras artropatias reacionais');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('M02.9', 'Artropatia reacional não especificada'),
 	('M03.0', 'Artrite pós-meningocócica (A39.8+)'),
 	('M03.1', 'Artropatia pós-infecciosa na sífilis (A50.5+)'),
@@ -5451,7 +5451,7 @@ c.execute("
 	('N90.6', 'Hipertrofia da vulva'),
 	('N90.7', 'Cisto vulvar'),
 	('N90.8', 'Outros transtornos não-inflamatórios especificados da vulva e do períneo');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('N90.9', 'Transtorno não-inflamatório e não especificado da vulva e do períneo'),
 	('N91.0', 'Amenorréia primária'),
 	('N91.1', 'Amenorréia secundária'),
@@ -6145,7 +6145,7 @@ c.execute("
 	('P54.8', 'Outras hemorragias fetais e neonatais especificadas'),
 	('P54.9', 'Hemorragia fetal e neonatal não especificada'),
 	('P55.0', 'Isoimunização Rh do feto e do recém-nascido');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('P55.1', 'Isoimunização ABO do feto e do recém-nascido'),
 	('P55.8', 'Outras doenças hemolíticas do feto e do recém-nascido'),
 	('P55.9', 'Doença hemolítica não especificada do feto e do recém-nascido'),
@@ -7097,7 +7097,7 @@ c.execute("
 	('R76.1', 'Reação anormal ao teste da tuberculina'),
 	('R76.2', 'Exame sorológico falso positivo para sífilis'),
 	('R76.8', 'Outros achados imunológicos especificados anormais no soro');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('R76.9', 'Achado anormal de exame imunológico sérico, não especificado'),
 	('R77.0', 'Anormalidade da albumina'),
 	('R77.1', 'Anormalidade das globulinas'),
@@ -7832,7 +7832,7 @@ c.execute("
 	('T02.2', 'Fraturas envolvendo regiões múltiplas de um membro superior'),
 	('T02.3', 'Fraturas envolvendo regiões múltiplas de um membro inferior'),
 	('T02.4', 'Fraturas envolvendo regiões múltiplas de ambos os membros superiores');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('T02.5', 'Fraturas envolvendo regiões múltiplas de ambos os membros inferiores'),
 	('T02.6', 'Fraturas envolvendo regiões múltiplas do(s) membro(s) superior(es) com inferior(es)'),
 	('T02.7', 'Fraturas envolvendo tórax com parte inferior do dorso e pelve com membro(s)'),
@@ -8548,7 +8548,7 @@ c.execute("
 	('V13.9', 'Ciclista traumatizado em colisão com um automóvel, "pick up" ou caminhonete - ciclista não especificado traumatizado em um acidente de trânsito'),
 	('V14.0', 'Ciclista traumatizado em colisão com um veículo de transporte pesado ou um ônibus - condutor traumatizado em acidente não-de-trânsito'),
 	('V14.1', 'Ciclista traumatizado em colisão com um veículo de transporte pesado ou um ônibus - passageiro traumatizado em acidente não-de-trânsito');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('V14.2', 'Ciclista traumatizado em colisão com um veículo de transporte pesado ou um ônibus - ciclista não especificado traumatizado em acidente não-de-trânsito'),
 	('V14.3', 'Ciclista traumatizado em colisão com um veículo de transporte pesado ou um ônibus - pessoa traumatizada ao subir ou descer do veículo'),
 	('V14.4', 'Ciclista traumatizado em colisão com um veículo de transporte pesado ou um ônibus - condutor traumatizado em um acidente de trânsito'),
@@ -8852,7 +8852,7 @@ c.execute("
 	('V50.6', 'Ocupante de uma caminhonete traumatizado em colisão com um pedestre ou um animal - passageiro traumatizado em um acidente de trânsito'),
 	('V50.7', 'Ocupante de uma caminhonete traumatizado em colisão com um pedestre ou um animal - pessoa viajando no exterior do veículo traumatizada em um acidente de trânsito'),
 	('V50.9', 'Ocupante de uma caminhonete traumatizado em colisão com um pedestre ou um animal - ocupante não especificado de uma caminhonete traumatizado em um acidente de trânsito');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('V51.0', 'Ocupante de uma caminhonete traumatizado em colisão com um veículo a pedal - condutor [motorista] traumatizado em um acidente não-de-trânsito'),
 	('V51.1', 'Ocupante de uma caminhonete traumatizado em colisão com um veículo a pedal - passageiro traumatizado em um acidente não-de-trânsito'),
 	('V51.2', 'Ocupante de uma caminhonete traumatizado em colisão com um veículo a pedal - pessoa viajando no exterior do veículo traumatizada em um acidente não-de-trânsito'),
@@ -9141,7 +9141,7 @@ c.execute("
 	('V82.4', 'Pessoa traumatizada ao subir ou descer de um bonde [carro elétrico]'),
 	('V82.5', 'Ocupante de um bonde [carro elétrico] traumatizado devido a uma queda no interior do mesmo'),
 	('V82.6', 'Ocupante de um bonde [carro elétrico] traumatizado devido a uma queda do mesmo');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('V82.7', 'Ocupante de um bonde [carro elétrico] traumatizado devido a um descarrilhamento sem colisão antecedente'),
 	('V82.8', 'Ocupante de um bonde [carro elétrico] traumatizado em outros acidentes de transporte especificados'),
 	('V82.9', 'Ocupante de um bonde [carro elétrico] traumatizado em um acidente de trânsito não especificado'),
@@ -9646,7 +9646,7 @@ c.execute("
 	('W36.8', 'Explosão ou ruptura de cilindro de gás - outros locais especificados'),
 	('W36.9', 'Explosão ou ruptura de cilindro de gás - local não especificado'),
 	('W37.0', 'Explosão ou ruptura de pneumático, tubulação ou mangueira, pressurizados - residência');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('W37.1', 'Explosão ou ruptura de pneumático, tubulação ou mangueira, pressurizados - habitação coletiva'),
 	('W37.2', 'Explosão ou ruptura de pneumático, tubulação ou mangueira, pressurizados - escolas, outras instituições e áreas de administração pública'),
 	('W37.3', 'Explosão ou ruptura de pneumático, tubulação ou mangueira, pressurizados - área para a prática de esportes e atletismo'),
@@ -10155,7 +10155,7 @@ c.execute("
 	('X00.6', 'Exposição a fogo não-controlado em um edifício ou outro tipo de construção - áreas industriais e em construção'),
 	('X00.7', 'Exposição a fogo não-controlado em um edifício ou outro tipo de construção - fazenda'),
 	('X00.8', 'Exposição a fogo não-controlado em um edifício ou outro tipo de construção - outros locais especificados');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('X00.9', 'Exposição a fogo não-controlado em um edifício ou outro tipo de construção - local não especificado'),
 	('X01.0', 'Exposição a fogo não-controlado fora de um edifício ou de outro tipo de construção - residência'),
 	('X01.1', 'Exposição a fogo não-controlado fora de um edifício ou de outro tipo de construção - habitação coletiva'),
@@ -10626,7 +10626,7 @@ c.execute("
 	('X48.6', 'Envenenamento [intoxicação] acidental por e exposição a pesticidas - áreas industriais e em construção'),
 	('X48.7', 'Envenenamento [intoxicação] acidental por e exposição a pesticidas - fazenda'),
 	('X48.8', 'Envenenamento [intoxicação] acidental por e exposição a pesticidas - outros locais especificados');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('X48.9', 'Envenenamento [intoxicação] acidental por e exposição a pesticidas - local não especificado'),
 	('X49.0', 'Envenenamento [intoxicação] acidental por e exposição a outras substâncias químicas nocivas e às não especificadas - residência'),
 	('X49.1', 'Envenenamento [intoxicação] acidental por e exposição a outras substâncias químicas nocivas e às não especificadas - habitação coletiva'),
@@ -11050,7 +11050,7 @@ c.execute("
 	('X92.9', 'Agressão por meio de afogamento e submersão - local não especificado'),
 	('X93.0', 'Agressão por meio de disparo de arma de fogo de mão - residência'),
 	('X93.1', 'Agressão por meio de disparo de arma de fogo de mão - habitação coletiva');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('X93.2', 'Agressão por meio de disparo de arma de fogo de mão - escolas, outras instituições e áreas de administração pública'),
 	('X93.3', 'Agressão por meio de disparo de arma de fogo de mão - área para a prática de esportes e atletismo'),
 	('X93.4', 'Agressão por meio de disparo de arma de fogo de mão - rua e estrada'),
@@ -11452,7 +11452,7 @@ c.execute("
 	('Y33.9', 'Outros fatos ou eventos especificados, intenção não determinada - local não especificado'),
 	('Y34.0', 'Fatos ou eventos não especificados e intenção não determinada - residência'),
 	('Y34.1', 'Fatos ou eventos não especificados e intenção não determinada - habitação coletiva');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('Y34.2', 'Fatos ou eventos não especificados e intenção não determinada - escolas, outras instituições e áreas de administração pública'),
 	('Y34.3', 'Fatos ou eventos não especificados e intenção não determinada - área para a prática de esportes e atletismo'),
 	('Y34.4', 'Fatos ou eventos não especificados e intenção não determinada - rua e estrada'),
@@ -12123,7 +12123,7 @@ c.execute("
 	('Z52.9', 'Doador de órgão ou tecido não especificado'),
 	('Z53.0', 'Procedimento não realizado devido à contra-indicação'),
 	('Z53.1', 'Procedimento não realizado devido à decisão do paciente por razões de crença ou grupo de pressão');
-	INSERT INTO `cid` (`idCid`, `descricaoCid`) VALUES
+	INSERT INTO servicos_cid (cid_id, descricao) VALUES
 	('Z53.2', 'Procedimento não realizado devido à decisão do paciente por outras razões e as não especificadas'),
 	('Z53.8', 'Procedimento não realizado por outras razões'),
 	('Z53.9', 'Procedimento não realizado por razão não especificada'),
@@ -12449,6 +12449,6 @@ c.execute("
 	('Z99.3', 'Dependência de cadeira de rodas'),
 	('Z99.8', 'Dependência de outras máquinas e aparelhos capacitantes'),
 	('Z99.9', 'Dependência de máquina e aparelho capacitante não especificado');
-")
-
+"""
+c.execute(query)
 conn.commit()
