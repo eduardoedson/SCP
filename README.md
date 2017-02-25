@@ -44,7 +44,11 @@ Criar banco:<br />
 
 * De volta ao terminal dentro da virtualenv rode:<br />
   ``./manage.py migrate``<br />
+
+* Popular banco com dados necessários:<br />
   ``./manage.py loaddata criar_padroes.yaml``<br />
+  ``python sql_scripts inser_cid.py``<br />
+  ``python sql_scripts inser_medicamentos.py``<br />
 
 Rodando projeto:<br />
 ---------------------------------------
