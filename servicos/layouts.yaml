@@ -15,7 +15,15 @@ Chamado:
   - descricao
 
 Cid:
-  - cid_id descricao
+  Cid:
+  - cid_id
+  - descricao
 
 Medicamento:
-  - nome
+  Medicamento:
+  - nome principio_ativo
+  - laboratorio
+  - cnpj codggrem ean
+  - restricao_hospitalar
+  - preco_comercial preco_fabricacao
+  - apresentacao

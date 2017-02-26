@@ -15,13 +15,15 @@ from .forms import ChamadoForm, ConsultaFilterSet, ConsultaForm
 from .models import Chamado, Consulta, StatusChamado, Cid, Medicamento
 
 
-MedicamentoCrud = Crud.build(Medicamento, '')
+CidCrud = Crud.build(Cid, '')
 
-class CidCrud(Crud):
-    model = Cid
+
+class MedicamentoCrud(Crud):
+    model = Medicamento
     help_path = ''
+
     class BaseMixin(crud.base.CrudBaseMixin):
-        list_field_names = ['cid_id', 'descricao']
+        list_field_names = ['principio_ativo', 'laboratorio', 'preco_comercial', 'restricao_hospitalar']
 
 
 class ConsultaPrintView(GroupRequiredMixin,
