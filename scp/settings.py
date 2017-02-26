@@ -91,7 +91,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'scp',
-        'USER': 'postgres',
+        'USER': 'scp',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '',
+
     }
 }
 
