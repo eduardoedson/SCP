@@ -4,7 +4,7 @@ SCP - Sistema de Controle de Pacientes
 
 Instalação de dependências<br />
 ---------------------------------------------------------------
-  ``sudo apt-get install python-pip python-dev python3-dev libpq-dev postgresql postgresql-contrib npm curl git vim``<br />
+  ``sudo apt-get install python-pip python-dev python3-dev libpq-dev postgresql postgresql-contrib npm curl git vim pgadmin3``<br />
   ``sudo curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -``<br />
   ``sudo apt-get install -y nodejs``<br />
   ``sudo apt-get install -y build-essential``<br />
@@ -18,7 +18,8 @@ Instalação de dependências<br />
   ``sudo su - postgres``<br />
   ``createdb scp``<br />
   ``psql``<br />
-  ``GRANT ALL PRIVILEGES ON DATABASE scp TO postgres;``<br />
+  ``CREATE USER scp WITH PASSWORD '1234';``<br />
+  ``GRANT ALL PRIVILEGES ON DATABASE scp TO scp;``<br />
   ``\q``<br />
   ``exit``<br />
 
