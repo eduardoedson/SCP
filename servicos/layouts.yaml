@@ -13,3 +13,9 @@ Chamado:
   - titulo status
   - autor
   - descricao
+
+Cid:
+  - cid_id descricao
+
+Medicamento:
+  - nome

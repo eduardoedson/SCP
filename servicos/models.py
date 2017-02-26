@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from usuarios.models import Usuario
 
-class medicamento(models.Model):
+class Medicamento(models.Model):
     id_medicamento = models.CharField(max_length=10, blank=True, null=True)
     principio_ativo = models.TextField(verbose_name=_('Principio Ativo'))
     cnpj = models.CharField(max_length=18, verbose_name=_('CNPJ'))
@@ -23,7 +23,7 @@ class medicamento(models.Model):
     def __str__(self):
         return self.nome
 
-class cid(models.Model):
+class Cid(models.Model):
     cid_id = models.CharField(max_length=10, verbose_name=_('Cid ID'), unique=True)
     descricao = models.TextField(verbose_name=_('Descrição'))
 
@@ -32,7 +32,7 @@ class cid(models.Model):
         verbose_name_plural = _('Cids')
 
     def __str__(self):
-        return '%s - %s', (self.cid_id, self.descricao)
+        return '%s - %s' % (self.cid_id, self.descricao)
 
 class Consulta(models.Model):
     medico = models.ForeignKey(

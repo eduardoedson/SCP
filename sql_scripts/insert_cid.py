@@ -12452,3 +12452,4 @@ query = """
 """
 c.execute(query)
 conn.commit()
+print('Tabela Populada!')

@@ -12,7 +12,16 @@ from usuarios.models import Usuario
 from utils import make_pagination
 
 from .forms import ChamadoForm, ConsultaFilterSet, ConsultaForm
-from .models import Chamado, Consulta, StatusChamado
+from .models import Chamado, Consulta, StatusChamado, Cid, Medicamento
+
+
+MedicamentoCrud = Crud.build(Medicamento, '')
+
+class CidCrud(Crud):
+    model = Cid
+    help_path = ''
+    class BaseMixin(crud.base.CrudBaseMixin):
+        list_field_names = ['cid_id', 'descricao']
 
 
 class ConsultaPrintView(GroupRequiredMixin,
