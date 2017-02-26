@@ -47,8 +47,8 @@ Depedências do banco:<br />
 ---------------------------------------
   ``./manage.py migrate``<br />
   ``./manage.py loaddata pre_data.yaml``<br />
-  ``./sql_scripts inser_cid.py``<br />
-  ``./sql_scripts inser_medicamentos.py``<br />
+  ``./sql_scripts insert_cid.py``<br />
+  ``./sql_scripts insert_medicamentos.py``<br />
 
 Criar usuário administrador:<br />
 ---------------------------------------
