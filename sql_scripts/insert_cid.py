@@ -4,9 +4,9 @@ import psycopg2
 
 
 conn = psycopg2.connect("dbname='scp'\
-						 user='postgres'\
+						 user='scp'\
 						 host='localhost'\
-						 password=''")
+						 password='1234'")
 c = conn.cursor()
 query = """
 	INSERT INTO servicos_cid (cid_id, descricao) VALUES
