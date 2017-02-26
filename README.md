@@ -46,7 +46,7 @@ Instalação das dependências do projeto:<br />
 Depedências do banco:<br />
 ---------------------------------------
   ``./manage.py migrate``<br />
-  ``./manage.py loaddata criar_padroes.yaml``<br />
+  ``./manage.py loaddata pre_data.yaml``<br />
   ``./sql_scripts inser_cid.py``<br />
   ``./sql_scripts inser_medicamentos.py``<br />
 
