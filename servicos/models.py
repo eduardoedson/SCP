@@ -4,21 +4,22 @@ from django.utils.translation import ugettext_lazy as _
 from usuarios.models import Usuario
 
 class medicamento(models.Model):
-    principio_ativo = models.CharField(max_length=50, verbose_name=_('Principio Ativo'))
-    cnpj = models.CharField(max_length=18 , verbose_name=_('CNPJ'))
-    laboratorio = models.CharField(max_length=100, verbose_name=_('Laboratório'))
-    codggrem = models.CharField(max_length=18 , verbose_name=_('codggrem'))
-    ean = models.CharField(max_length=18 , verbose_name=_('ean'))
-    nome = models.CharField(max_length=50 , verbose_name=_('Nome'))
-    apresentacao = models.CharField(max_length=50 , verbose_name=_('Apresentação'))
-    preco_fabricacao = models.CharField(max_length=10 , verbose_name=_('Preço Fabricação'))
-    preco_comercial = models.CharField(max_length=10 , verbose_name=_('Preço Comercial'))
-    restricao_hospitalar = models.CharField(max_length=10 , verbose_name=_('Restrição Hospitalar'))
-    
+    id_medicamento = models.CharField(max_length=10, blank=True, null=True)
+    principio_ativo = models.TextField(verbose_name=_('Principio Ativo'))
+    cnpj = models.CharField(max_length=18, verbose_name=_('CNPJ'))
+    laboratorio = models.TextField(verbose_name=_('Laboratório'))
+    codggrem = models.CharField(max_length=18, verbose_name=_('codggrem'))
+    ean = models.CharField(max_length=18, verbose_name=_('ean'))
+    nome = models.TextField(verbose_name=_('Nome'))
+    apresentacao = models.TextField(verbose_name=_('Apresentação'))
+    preco_fabricacao = models.CharField(max_length=10, verbose_name=_('Preço Fabricação'), blank=True, null=True)
+    preco_comercial = models.CharField(max_length=10, verbose_name=_('Preço Comercial'), blank=True, null=True)
+    restricao_hospitalar = models.CharField(max_length=10, verbose_name=_('Restrição Hospitalar'), blank=True, null=True)
+
     class Meta:
         verbose_name = _('Medicamento')
         verbose_name_plural = _('Medicamentos')
-        
+
     def __str__(self):
         return self.nome
 
