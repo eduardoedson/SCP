@@ -93,6 +93,7 @@ DATABASES = {
         'NAME': 'scp',
         'USER': 'postgres',
         'PASSWORD': '',
+        'HOST': 'localhost',
     }
 }
 
