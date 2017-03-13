@@ -1,0 +1,14 @@
+<div class="btn-group btn-group-lg">
+  <a href="{% url 'usuarios:tipousuario_list' %}" class="btn btn-info btn-lg">Tipos de Usuário</a>
+  <a href="{% url 'usuarios:planosaude_list' %}" class="btn btn-info btn-lg">Planos de Saúde</a>
+  <a href="{% url 'usuarios:usuario_list' %}" class="btn btn-info btn-lg">Usuários</a>
+  <a href="{% url 'servicos:consulta_list' %}" class="btn btn-info btn-lg">Consultas</a>
+  <a href="{% url 'usuarios:especialidade_list' %}" class="btn btn-info btn-lg">Especialidades</a>
+</div>
+<br /><br />
+<div class="btn-group btn-group-lg">
+  <a href="{% url 'usuarios:especialidademedico_list' %}" class="btn btn-info btn-lg">Especialidade <-> Médico</a>
+  <a href="{% url 'usuarios:pesquisar_medico' %}" class="btn btn-info btn-lg">Pesquisar Médico</a>
+  <a href="{% url 'servicos:statuschamado_list' %}" class="btn btn-info btn-lg">Status Chamado</a>
+  <a href="{% url 'servicos:chamado_list' %}" class="btn btn-info btn-lg">Chamados</a>
+</div>
