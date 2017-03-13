@@ -2,12 +2,6 @@
 {% load i18n %}
 
 {% block extrablock %}
-  <h2 class="legend"><b>Telefones</b></h2>
-  <table style="width:100%" class="table table-hover">
-    <tr><td>{{telefones|first}}</td></tr>
-    <tr><td>{{telefones|last}}</td></tr>
-  </table>
-
   <h2 class="legend"><b>Especialidades</b></h2>
   <table style="width:100%" class="table table-hover">
     {% for e in especialidades %}

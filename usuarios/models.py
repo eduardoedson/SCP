@@ -29,26 +29,6 @@ class PlanoSaude(models.Model):
         return self.descricao
 
 
-class Telefone(models.Model):
-    tipo = models.CharField(
-        max_length=7,
-        choices=TIPO_TELEFONE,
-        verbose_name=_('Tipo Telefone'))
-    ddd = models.CharField(max_length=2, verbose_name=_('DDD'))
-    numero = models.CharField(max_length=10, verbose_name=_('Número'))
-    principal = models.CharField(
-        max_length=10,
-        verbose_name=_('Telefone Principal?'),
-        choices=YES_NO_CHOICES)
-
-    class Meta:
-        verbose_name = _('Telefone')
-        verbose_name_plural = _('Telefones')
-
-    def __str__(self):
-        return '(%s) %s' % (self.ddd, self.numero)
-
-
 class Usuario(models.Model):
     nome = models.CharField(max_length=50, verbose_name=_('Nome'))
     data_nascimento = models.DateField(
@@ -61,10 +41,11 @@ class Usuario(models.Model):
         PlanoSaude, verbose_name=_('Plano de Saúde'), blank=True, null=True)
 
     # Telefones
-    primeiro_telefone = models.ForeignKey(
-        Telefone, null=True, related_name='primeiro_telefone')
-    segundo_telefone = models.ForeignKey(
-        Telefone, null=True, related_name='segundo_telefone')
+    primeiro_telefone = models.CharField(
+        max_length=50, verbose_name=_('Primeiro Telefone'))
+    segundo_telefone = models.CharField(
+        max_length=50, blank=True, null=True,
+        verbose_name=_('Segundo Telefone'))
 
     # Dados para logar no sistema
     user = models.ForeignKey(User)
