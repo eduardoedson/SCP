@@ -74,8 +74,8 @@ class Chamado(models.Model):
     autor = models.ForeignKey(Usuario, verbose_name=_('Autor'), blank=True)
 
     class Meta:
-        verbose_name = _('Tipo de Usuário')
-        verbose_name_plural = _('Tipos de Usuários')
+        verbose_name = _('Chamado')
+        verbose_name_plural = _('Chamados')
 
     def __str__(self):
         return '%s [%s]' % (self.titulo, self.status)
