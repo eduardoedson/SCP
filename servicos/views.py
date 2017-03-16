@@ -2,6 +2,8 @@ from braces.views import GroupRequiredMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django_filters.views import FilterView
 
@@ -12,9 +14,44 @@ from usuarios.models import Usuario
 from utils import make_pagination
 
 from .forms import ChamadoForm, ConsultaFilterSet, ConsultaForm
-from .models import Chamado, Cid, Consulta, Medicamento, StatusChamado
+from .models import (Chamado, Cid, Configuracao, Consulta, Medicamento,
+                     StatusChamado)
 
 CidCrud = Crud.build(Cid, '')
+
+
+def get_conf():
+    return Configuracao.objects.first()
+
+
+class ConfiguracaoCrud(GroupRequiredMixin, LoginRequiredMixin, Crud):
+    model = Configuracao
+    help_path = ''
+
+    class BaseMixin(crud.base.CrudBaseMixin):
+        list_field_names = ['titulo']
+        raise_exception = True
+        login_url = LOGIN_REDIRECT_URL
+        group_required = ['Administrador']
+
+    class ListView(crud.base.CrudListView):
+
+        def get(self, request, *args, **kwargs):
+            conf = get_conf()
+            if conf:
+                return HttpResponseRedirect(
+                    reverse('servicos:configuracao_detail',
+                            kwargs={'pk': conf.pk}))
+            else:
+                return HttpResponseRedirect(
+                    reverse('servicos:configuracao_create'))
+
+    class DetailView(crud.base.CrudDetailView):
+
+        def get(self, request, *args, **kwargs):
+            return HttpResponseRedirect(
+                reverse('servicos:configuracao_update',
+                        kwargs={'pk': self.kwargs['pk']}))
 
 
 class MedicamentoCrud(Crud):
@@ -22,7 +59,8 @@ class MedicamentoCrud(Crud):
     help_path = ''
 
     class BaseMixin(crud.base.CrudBaseMixin):
-        list_field_names = ['principio_ativo', 'laboratorio', 'preco_comercial', 'restricao_hospitalar']
+        list_field_names = ['principio_ativo', 'laboratorio',
+                            'preco_comercial', 'restricao_hospitalar']
 
 
 class ConsultaPrintView(GroupRequiredMixin,

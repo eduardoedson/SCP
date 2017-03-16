@@ -1,7 +1,8 @@
 from django.conf.urls import include, url
 
-from .views import (ChamadoCrud, CidCrud, ConsultaCrud, ConsultaFilterView,
-                    ConsultaPrintView, MedicamentoCrud, StatusChamadoCrud)
+from .views import (ChamadoCrud, CidCrud, ConfiguracaoCrud, ConsultaCrud,
+                    ConsultaFilterView, ConsultaPrintView, MedicamentoCrud,
+                    StatusChamadoCrud)
 
 app_name = 'servicos'
 
@@ -15,4 +16,5 @@ urlpatterns = [
         name='pesquisar_consulta'),
     url(r'^consulta/(?P<pk>\d+)/imprimir$',
         ConsultaPrintView.as_view(), name='consulta_print'),
+    url(r'^configuracao/', include(ConfiguracaoCrud.get_urls())),
 ]

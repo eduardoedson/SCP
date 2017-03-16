@@ -4,6 +4,28 @@ from django.utils.translation import ugettext_lazy as _
 from usuarios.models import Usuario
 
 
+def media_path(instance, filename):
+    return './scp/logotipo/%s' % filename
+
+
+class Configuracao(models.Model):
+    titulo = models.CharField(
+        max_length=100, blank=True, null=True, verbose_name=_('Título'))
+    logotipo = models.ImageField(
+        blank=True,
+        upload_to=media_path,
+        verbose_name=_('Logotipo'))
+    rodape = models.CharField(
+        max_length=100, blank=True, null=True, verbose_name=_('Rodapé'))
+
+    class Meta:
+        verbose_name = _('Configuração')
+        verbose_name_plural = _('Configurações')
+
+    def __str__(self):
+        return self.titulo
+
+
 class Medicamento(models.Model):
     id_medicamento = models.CharField(max_length=10, blank=True, null=True)
     principio_ativo = models.TextField(verbose_name=_('Principio Ativo'))

@@ -27,3 +27,8 @@ Medicamento:
   - restricao_hospitalar
   - preco_comercial preco_fabricacao
   - apresentacao
+
+Configuracao:
+  Configuração:
+  - titulo rodape
+  - logotipo
