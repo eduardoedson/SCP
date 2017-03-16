@@ -12,8 +12,7 @@ from usuarios.models import Usuario
 from utils import make_pagination
 
 from .forms import ChamadoForm, ConsultaFilterSet, ConsultaForm
-from .models import Chamado, Consulta, StatusChamado, Cid, Medicamento
-
+from .models import Chamado, Cid, Consulta, Medicamento, StatusChamado
 
 CidCrud = Crud.build(Cid, '')
 

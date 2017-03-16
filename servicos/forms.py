@@ -7,9 +7,9 @@ from django.db import models
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 from django_filters import DateFromToRangeFilter, FilterSet
+from easy_select2 import Select2
 
 from crispy_layout_mixin import form_actions, to_row
-from easy_select2 import Select2
 from utils import RangeWidgetOverride, get_medicos, get_pacientes
 
 from .models import Chamado, Consulta

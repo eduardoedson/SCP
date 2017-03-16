@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from usuarios.models import Usuario
 
+
 class Medicamento(models.Model):
     id_medicamento = models.CharField(max_length=10, blank=True, null=True)
     principio_ativo = models.TextField(verbose_name=_('Principio Ativo'))

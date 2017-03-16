@@ -1,8 +1,7 @@
 from django.conf.urls import include, url
 
-from .views import (ChamadoCrud, ConsultaCrud, ConsultaFilterView,
-                    ConsultaPrintView, StatusChamadoCrud,
-                    CidCrud, MedicamentoCrud)
+from .views import (ChamadoCrud, CidCrud, ConsultaCrud, ConsultaFilterView,
+                    ConsultaPrintView, MedicamentoCrud, StatusChamadoCrud)
 
 app_name = 'servicos'
 

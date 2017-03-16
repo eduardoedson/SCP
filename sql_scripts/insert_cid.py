@@ -2,7 +2,6 @@
 # coding: utf8
 import psycopg2
 
-
 conn = psycopg2.connect("dbname='scp'\
 						 user='scp'\
 						 host='localhost'\
