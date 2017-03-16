@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block title %}
-  <h1 class="page-header">Sistema de Controle de Pacientes</h1>
+  <h1 class="page-header" style="text-align: center;">{% if titulo %}{{titulo}}{% else %}Sistema de Controle de Pacientes{% endif %}</h1>
 {% endblock %}
 
 {% block base_content %}

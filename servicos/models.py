@@ -5,7 +5,7 @@ from usuarios.models import Usuario
 
 
 def media_path(instance, filename):
-    return './scp/logotipo/%s' % filename
+    return './logotipo/%s' % filename
 
 
 class Configuracao(models.Model):

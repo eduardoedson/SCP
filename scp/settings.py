@@ -76,6 +76,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'scp.context_processors.usuario_context',
+                'scp.context_processors.custom_context',
             ],
         },
     },

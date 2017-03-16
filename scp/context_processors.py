@@ -1,5 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 
+from servicos.views import get_conf
 from usuarios.models import Usuario
 
 
@@ -52,3 +53,8 @@ def recupera_usuario(user_pk):
 
 def usuario_context(request):
     return recupera_usuario(recupera_user(request))
+
+
+def custom_context(request):
+    conf = get_conf()
+    return conf.__dict__ if conf else {}

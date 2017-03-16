@@ -26,7 +26,11 @@
       {% block main_header %}
         <div><p style="text-align:center; margin-top:0px; margin-bottom:0px; padding:0px;">
           {% if user.is_authenticated %}<a href="/home">{% else %}<a href="/">{% endif %}
-            <img height="130" width="380" src="{% static 'img/logo.png' %}" alt="image"/></a>
+            {% if logotipo %}
+              <img height="130" width="380" src="/media/{{logotipo}}" alt="image"/></a>
+            {% else %}
+              <img height="130" width="380" src="{% static 'img/logo.png' %}" alt="image"/></a>
+            {% endif %}
         </p></div>
       {% endblock main_header %}
 
@@ -85,7 +89,11 @@
     <hr>
     <footer id="footer" class="footer page__row">
       <div><p style="text-align:center; margin-top:0px; margin-bottom:0px; padding:0px;">
-        Desenvolvido em Software Livre e Aberto por <a target="_blank" href="https://eduardoedson.github.io/">Eduardo</a>
+        {% if rodape %}
+          {{rodape}}
+        {% else %}
+          Desenvolvido em Software Livre e Aberto por <a target="_blank" href="https://eduardoedson.github.io/">Eduardo</a>
+        {% endif %}
       </p></div>
     </footer>
   {% endblock footer %}
